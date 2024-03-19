@@ -1,10 +1,13 @@
 <template>
-  <div>
-    <q-input v-model="value" />
-  </div>
+  <router-view />
 </template>
 <script>
 import { ref } from "vue";
+import { useRouter } from "vue-router";
+import { globalRouter } from "./routes/globalRouter";
+
+const router = useRouter();
+globalRouter.router = router;
 
 export default {
   setup() {
