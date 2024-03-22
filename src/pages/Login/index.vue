@@ -1,17 +1,22 @@
 <template>
-  <Form @submit="onSubmit" :validation-schema="validationSchema" class="w-[500px]">
-    <FormItem name="username"/>
-    <button>Submit</button>  
-  </Form>
+  <form @submit="onSubmit">
+    <InputText name="username" />
+    <InputNumber name="age"/>
+    <button>Submit</button>
+  </form>
 </template>
 
 <script setup>
-import FormItem from '@/components/FormItem/index.vue';
-import { Form } from 'vee-validate';
+import InputNumber from '@/components/InputNumber/index.vue';
+import InputText from '@/components/InputText/index.vue';
+import { useForm } from 'vee-validate';
 import { validationSchema } from './validate';
 
-function onSubmit(values) {
-  alert(JSON.stringify(values, null, 2));
-}
+const { handleSubmit } = useForm({
+  validationSchema,
+});
 
+const onSubmit = handleSubmit(values => {
+  alert(JSON.stringify(values, null, 2));
+});
 </script>
