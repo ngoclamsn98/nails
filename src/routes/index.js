@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import store from "../store/index";
-import { getToken } from "../untils";
+import { getToken } from "../utils";
 const router = createRouter({
   history: createWebHistory(),
   routes: [
