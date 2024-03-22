@@ -15,7 +15,16 @@ export default {
       'bubble-gum': '#ff77e9',
       'bermuda': '#78dcca',
       red: '#f43f5e',
-      gray: '#6b7280'
+      gray: '#6b7280',
+      'blue-300': '#93c5fd',
+      'blue-400': '#60a5fa',
+      'blue-500': '#3b82f6',
+      'blue-600': '#2563e',
+      'sky-200':'#bae6fd',
+      'sky-300': '#7dd3fc',
+      'sky-400': '#38bdf8',
+      'sky-500': '#0ea5e9',
+      'sky-600': '#0284c7'
     },
     extend: {},
   },

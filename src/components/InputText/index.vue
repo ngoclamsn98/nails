@@ -2,9 +2,9 @@
     <div class="flex flex-col gap-y-[2px] h-[60px] w-full">
         <div class="flex gap-x-[10px] items-center">
             <span>{{ label }}</span>
-            <input v-model="value" :type="type" :placeholder="placeholder" class="h-[40px] border rounded-[10px] pl-[10px] border-gray flex-1"/>
+            <input v-model="value" :type="type" :placeholder="placeholder" class="h-[45px] border rounded-[15px] pl-[10px] flex-1 border-white"/>
         </div>
-        <span class="text-red text-[13px] ml-[10px]">{{ errorMessage }}</span>
+        <span class="text-red text-[13px] ml-[15px]">{{ errorMessage }}</span>
     </div>
 </template>
 
