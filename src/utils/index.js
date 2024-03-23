@@ -4,3 +4,10 @@ export const getToken = () => {
   }
   return null;
 };
+
+export const setToken = (token) => {
+  if (typeof window != undefined) {
+    return window.localStorage.setItem("token", JSON.stringify(token));
+  }
+  return null;
+};

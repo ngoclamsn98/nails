@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
-import store from "../store/index";
-import { getToken } from "../utils";
+import store from "@/store/index";
+import { getToken } from "@/utils";
 const router = createRouter({
   history: createWebHistory(),
   routes: [
@@ -8,6 +8,7 @@ const router = createRouter({
       path: "/login",
       name: "Login",
       component: () => import("../pages/Login/index.vue"),
+      meta: { requiresAuth: false },
     },
     {
       path: "/",
@@ -20,25 +21,16 @@ const router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
   const token = getToken();
-
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     if (token) {
       handleInfoUser(to, from, next);
-    } else {
-      next("/login");
+      return;
     }
+    next("login");
   } else {
     if (token) {
-      await handleInfoUser(to, from, next);
-      switch (to.name) {
-        case "Login":
-        case "Home":
-          next({ path: "/" });
-          break;
-        default:
-          next();
-          break;
-      }
+      handleInfoUser(to, from, next);
+      next("/");
     } else {
       next();
     }
@@ -46,16 +38,11 @@ router.beforeEach(async (to, from, next) => {
 });
 
 const handleInfoUser = async (to, from, next) => {
-  const token = getToken();
-  if (token) {
-    try {
-      await store.dispatch("user/checkLogin");
-      next();
-    } catch (error) {
-      removeToken();
-      next({ path: "/login" });
-    }
-  } else {
+  try {
+    await store.dispatch("user/checkLogin");
+    next();
+  } catch (error) {
+    console.log(error);
     next();
   }
 };

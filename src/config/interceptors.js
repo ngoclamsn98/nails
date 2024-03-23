@@ -1,5 +1,5 @@
 import axios from "axios";
-import { globalRouter } from "../routes/globalRouter";
+import router from "@/routes";
 
 const axiosInstance = axios.create();
 
@@ -13,7 +13,7 @@ axiosInstance.interceptors.response.use(
   },
   function (error) {
     if (error.response.status == 401) {
-      globalRouter.router?.push("/");
+      router?.push("/");
     }
     return Promise.reject(error);
   }
