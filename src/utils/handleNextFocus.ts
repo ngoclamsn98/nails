@@ -2,11 +2,13 @@ export const handleNextFocus = (e, cb) => {
   e.preventDefault();
   const activeElement = document.activeElement;
   if (!activeElement || !activeElement.getAttribute) {
+    cb(e);
     return;
   }
 
   const focusName = activeElement.getAttribute("data-focus");
   if (!focusName) {
+    cb(e);
     return;
   }
 

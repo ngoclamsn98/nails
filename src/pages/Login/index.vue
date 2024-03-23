@@ -46,9 +46,9 @@ import { validationSchema } from "./validate";
 import { handleNextFocus } from "@/utils/handleNextFocus";
 
 const store = useStore();
+
 const cameraRef = ref();
 // const { isOpen, open, close } = useDisclosure();
-console.log(store, "store");
 const { handleSubmit } = useForm({
   validationSchema: validationSchema,
 });
