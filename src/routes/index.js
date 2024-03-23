@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
+import NProgress from "nprogress";
 import store from "@/store/index";
 import { getToken } from "@/utils";
 const router = createRouter({
@@ -20,6 +21,8 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
+  NProgress.start();
+  NProgress.set(1);
   const token = getToken();
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     if (token) {
@@ -35,6 +38,10 @@ router.beforeEach(async (to, from, next) => {
       next();
     }
   }
+});
+
+router.afterEach(() => {
+  NProgress.done();
 });
 
 const handleInfoUser = async (to, from, next) => {
