@@ -30,7 +30,7 @@ export default defineComponent({
     },
   },
   methods: {
-    closeCamera(srcImage) {
+    closeCamera({ srcImage, imageBlob }) {
       this.$emit("closeCamera", { srcImage });
     },
   },
@@ -49,12 +49,11 @@ export default defineComponent({
         "image/png",
         0.5
       );
-
       const url = URL.createObjectURL(imageBlob);
 
       send_file(url);
       cameraOff();
-      this.closeCamera(url);
+      this.closeCamera({ srcImage: url, imageBlob });
     };
 
     const send_file = (blob_file) => {
