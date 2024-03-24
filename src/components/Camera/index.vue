@@ -1,6 +1,6 @@
 <template>
   <div
-    class="absolute w-full h-full z-[111] top-0 left-0"
+    class="absolute w-full h-full z-[111] top-0 left-0 bg-[#d1d5db]"
     v-show="isOpen"
   >
     <camera
@@ -9,7 +9,13 @@
       :autoplay="false"
       class="flex justify-center items-end"
     >
-      <button @click="takePicture">Take Picture</button>
+      <div class="absolute w-full h-[50px] bottom-[30px] flex justify-center">
+        <div
+          @click="takePicture"
+          class="w-[50px] h-[50px] rounded-full border-2"
+        ></div>
+      </div>
+
     </camera>
   </div>
 </template>

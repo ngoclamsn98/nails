@@ -11,3 +11,10 @@ export const setToken = (token) => {
   }
   return null;
 };
+
+export const removeToken = () => {
+  if (typeof window != undefined) {
+    return window.localStorage.removeItem("token");
+  }
+  return null;
+};

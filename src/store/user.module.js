@@ -12,7 +12,7 @@ export default {
   mutations: {
     authenticate(state, { token }) {
       setToken(token);
-      router?.push("/");
+      router?.push("/staff");
     },
   },
 };

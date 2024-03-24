@@ -1,6 +1,6 @@
 import axios from "axios";
 import router from "@/routes";
-import { getToken } from "@/utils";
+import { getToken, removeToken } from "@/utils";
 import store from "@/store";
 
 const axiosInstance = axios.create();
@@ -28,8 +28,9 @@ axiosInstance.interceptors.response.use(
   },
   function (error) {
     store.commit("loading/setLoading", { isLoading: false });
+    removeToken();
     if (error.response.status == 401) {
-      router?.push("/");
+      router?.push("/login");
     }
     return Promise.reject(error);
   }
