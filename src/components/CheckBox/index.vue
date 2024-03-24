@@ -5,7 +5,6 @@
         v-if="!value"
         v-model="value"
         type="checkbox"
-        :placeholder="placeholder"
         :data-focus="name"
         class="w-[20px] h-[20px]"
       />

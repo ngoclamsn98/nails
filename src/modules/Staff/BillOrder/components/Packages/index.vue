@@ -12,7 +12,10 @@
       :aria-controls="'collapse_' + index"
       class="w-[90%] m-auto flex justify-start py-[5px]"
     >
-      <CheckBox :label="question.title" />
+      <CheckBox
+        :label="question.title"
+        :name="`packages[${index}].id`"
+      />
     </div>
     <Collapse
       :when="question.isExpanded"
@@ -26,7 +29,10 @@
           :key="item.id"
           class="mb-[10px]"
         >
-          <CheckBox :label="item.name" />
+          <CheckBox
+            :label="item.name"
+            :name="`products[${index}].id`"
+          />
         </li>
       </ul>
     </Collapse>
@@ -34,12 +40,14 @@
 </template>
     
 <script setup>
-import CheckBox from "@/components/CheckBox";
 import { ref } from "vue";
 import { Collapse } from "vue-collapsed";
+import CheckBox from "@/components/CheckBox";
+
 const packages = [
   {
     title: "Tóc",
+    id: 1,
     products: [
       { name: "Nhuộm", id: 3 },
       { name: "Uốn", id: 4 },
@@ -47,6 +55,7 @@ const packages = [
   },
   {
     title: "Nails",
+    id: 2,
     products: [
       { name: "làm móng tay", id: 1 },
       { name: "làm móng chân", id: 2 },

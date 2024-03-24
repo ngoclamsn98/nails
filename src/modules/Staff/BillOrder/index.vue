@@ -1,6 +1,6 @@
 <template>
   <form class="flex justify-start items-start w-[90%] h-full flex-col m-auto">
-    <!-- <Packages /> -->
+    <Packages />
     <Images />
   </form>
 </template>
