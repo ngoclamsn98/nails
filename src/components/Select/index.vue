@@ -1,7 +1,7 @@
 <template>
     <div class="flex gap-x-[5px]">
         <label :for="label" v-if="label">{{ label }}</label>
-        <select :name="name" :data-focus="name" v-model="value" class="h-[30px] rounded-[10px]">
+        <select :name="name" :data-focus="name" v-model="value" class="h-[30px] rounded-[10px] w-full px-[10px]">
             <option v-for="(option,index) in options" :key="index" :value="option.value" >{{ option.label }}</option>
         </select>
         <span> {{ errorMessage }}</span>

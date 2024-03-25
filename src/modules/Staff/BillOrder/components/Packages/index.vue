@@ -1,37 +1,37 @@
 <template>
   <div
-    v-for="(question, index) in questions"
-    :key="question.title"
+    v-for="(collapse, index) in collapses"
+    :key="collapse.title"
     class="border-b w-full border-gray"
   >
     <div
       :id="'toggle_' + index"
       @click="handleIndividual(index)"
-      :class="['Panel', { Active: question.isExpanded }]"
-      :aria-expanded="question.isExpanded ? 'true' : 'false'"
+      :class="['Panel', { Active: collapse.isExpanded }]"
+      :aria-expanded="collapse.isExpanded ? 'true' : 'false'"
       :aria-controls="'collapse_' + index"
       class="w-[90%] m-auto flex justify-start py-[5px]"
     >
       <CheckBox
-        :label="question.title"
-        :name="`packages[${index}].id`"
+        :label="collapse.title"
+        :name="`packages.${index}.id`"
       />
     </div>
     <Collapse
-      :when="question.isExpanded"
+      :when="collapse.isExpanded"
       :id="'collapse_' + index"
       role="region"
       class="CollapseContent  w-[80%] m-auto"
     >
       <ul class="ml-[10px] flex flex-col mt-[5px]">
         <li
-          v-for="item in question.products"
+          v-for="(item, position) in collapse.products"
           :key="item.id"
           class="mb-[10px]"
         >
           <CheckBox
             :label="item.name"
-            :name="`products[${index}].id`"
+            :name="`packages.${index}.products.${position}.id`"
           />
         </li>
       </ul>
@@ -40,9 +40,9 @@
 </template>
     
 <script setup>
+import CheckBox from "@/components/CheckBox";
 import { ref } from "vue";
 import { Collapse } from "vue-collapsed";
-import CheckBox from "@/components/CheckBox";
 
 const packages = [
   {
@@ -59,11 +59,12 @@ const packages = [
     products: [
       { name: "làm móng tay", id: 1 },
       { name: "làm móng chân", id: 2 },
+      { name: "sơn móng", id: 3 },
     ],
   },
 ];
 
-const questions = ref(
+const collapses = ref(
   packages.map(({ title, products }) => ({
     title,
     products,
@@ -72,7 +73,7 @@ const questions = ref(
 );
 
 function handleIndividual(selectedIndex) {
-  questions.value[selectedIndex].isExpanded =
-    !questions.value[selectedIndex].isExpanded;
+  collapses.value[selectedIndex].isExpanded =
+    !collapses.value[selectedIndex].isExpanded;
 }
 </script>

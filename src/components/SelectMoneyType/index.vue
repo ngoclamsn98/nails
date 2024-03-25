@@ -10,7 +10,7 @@
 
 <script setup>
 import { useField } from "vee-validate";
-import { ref } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 const props = defineProps({
     name: { type: String, required: true },
     label: { type: String, required: false },
@@ -21,8 +21,16 @@ const options = [
     { label: 'USD', value: 'usd'},
 ]
 
-const { value, errorMessage } = useField(() => props.name);
+const { value , errorMessage } = useField(() => props.name);
 
 const selectedValue = ref(value.value || 'vnd');
+
+watch(selectedValue, (newValue) => {
+  value.value = newValue;
+});
+
+onMounted(() => {
+    value.value = 'vnd';
+})
 
 </script>

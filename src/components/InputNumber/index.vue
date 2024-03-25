@@ -6,6 +6,7 @@
         v-model="numericValue"
         :placeholder="placeholder"
         :data-focus="name"
+        type="text"
         class="h-[45px] border rounded-[20px] pl-[20px] flex-1 border-gray-200 focus-visible:border-[1px] focus-visible:outline-0 focus-visible:border-blue-500  transition duration-500 placeholder-gray-200 focus:outline-0 focus-within:outline-0"
       />
     </div>
