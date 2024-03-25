@@ -6,6 +6,7 @@
         v-model="value"
         type="checkbox"
         :data-focus="name"
+        :name="name"
         class="w-[20px] h-[20px]"
       />
       <span
@@ -17,17 +18,35 @@
       </span>
       <span @click="value = !value">{{ label }}</span>
     </div>
+    <input
+      v-if="sub"
+      type="text"
+      class="hidden"
+      :name="sub.name"
+      v-model="valueSub"
+    >
   </div>
 </template>
   
 <script setup>
 import CheckBox from "@/components/Icon/CheckBox";
 import { useField } from "vee-validate";
+import { onMounted } from "vue";
 const props = defineProps({
   name: { type: String, required: true },
   label: { type: String, required: false },
+  sub: {
+    type: Object,
+    required: false,
+  },
 });
-
 const { value } = useField(() => props.name);
+const { value: valueSub } = useField(() => props?.sub?.name || "");
+
+onMounted(() => {
+  if (props.sub) {
+    valueSub.value = props.sub.value;
+  }
+});
 </script>
   

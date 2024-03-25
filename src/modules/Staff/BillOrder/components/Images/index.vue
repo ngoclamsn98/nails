@@ -39,5 +39,6 @@ const openCamera = () => {
 const closeCamera = (data) => {
   close();
   imageRef.value.src = data.srcImage;
+  imageRef.value.file = data.imageBlob;
 };
 </script>

@@ -14,7 +14,8 @@
     >
       <CheckBox
         :label="collapse.title"
-        :name="`packages.${index}.id`"
+        :name="`packages.${index}.selected`"
+        :sub="{name: `packages.${index}.id`, value:collapse.id }"
       />
     </div>
     <Collapse
@@ -31,7 +32,8 @@
         >
           <CheckBox
             :label="item.name"
-            :name="`packages.${index}.products.${position}.id`"
+            :name="`packages.${index}.products.${position}.selected`"
+            :sub="{name: `packages.${index}.products.${position}.id`, value:item.id }"
           />
         </li>
       </ul>
@@ -65,7 +67,8 @@ const packages = [
 ];
 
 const collapses = ref(
-  packages.map(({ title, products }) => ({
+  packages.map(({ title, products, id }) => ({
+    id,
     title,
     products,
     isExpanded: false,
