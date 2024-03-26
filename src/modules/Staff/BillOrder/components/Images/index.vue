@@ -8,10 +8,7 @@
       >
         <CameraIcon />
       </div>
-      <img
-        ref="imageRef"
-        class="w-[100px] h-[100px] bg-center object-cover"
-      />
+      <ImagePreview :src="imageRef.value.src" class="w-[100px] h-[100px] bg-center object-cover" v-if="imageRef"/>
     </div>
   </div>
   <Camera
@@ -21,10 +18,11 @@
   />
 </template>
 <script setup>
-import { ref } from "vue";
-import useDisclosure from "@/hooks/useDisclosure";
 import Camera from "@/components/Camera";
 import CameraIcon from "@/components/Icon/Camera";
+import ImagePreview from "@/components/ImagePreview";
+import useDisclosure from "@/hooks/useDisclosure";
+import { ref } from "vue";
 
 const cameraRef = ref();
 const imageRef = ref();
