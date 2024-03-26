@@ -8,7 +8,7 @@
       >
         <CameraIcon />
       </div>
-      <ImagePreview :src="image.src" class="w-[100px] h-[100px] bg-center object-cover" v-if="image.src"/>
+      <ImagePreview :src="image.src" v-if="image.src"/>
     </div>
   </div>
   <Camera
