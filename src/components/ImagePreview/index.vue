@@ -1,7 +1,7 @@
 <template>
     <div class="relative" v-if="src" @click="close">
       <img :src="src" @click="open" />
-      <div data-dialog-backdrop="dialog" data-dialog-backdrop-close="true" v-show="!isOpen"
+      <div data-dialog-backdrop="dialog" data-dialog-backdrop-close="true" v-show="isOpen"
         class="pointer-events-none fixed inset-0 z-[9199] grid h-screen w-screen place-items-center bg-black bg-opacity-60 backdrop-blur-sm transition-opacity duration-300">
         <div data-dialog="dialog"
           class="relative m-4 rounded-lg bg-white font-sans text-base font-light leading-relaxed text-blue-gray-500 antialiased shadow-2xl">
