@@ -8,7 +8,7 @@
       >
         <CameraIcon />
       </div>
-      <ImagePreview :src="imageRef.value.src" class="w-[100px] h-[100px] bg-center object-cover" v-if="imageRef"/>
+      <ImagePreview :src="image.src" class="w-[100px] h-[100px] bg-center object-cover" v-if="image.src"/>
     </div>
   </div>
   <Camera
@@ -22,10 +22,10 @@ import Camera from "@/components/Camera";
 import CameraIcon from "@/components/Icon/Camera";
 import ImagePreview from "@/components/ImagePreview";
 import useDisclosure from "@/hooks/useDisclosure";
-import { ref } from "vue";
+import { reactive, ref } from "vue";
 
 const cameraRef = ref();
-const imageRef = ref();
+const image = reactive({ src: null, file: null })
 
 const { open, close, isOpen } = useDisclosure();
 
@@ -36,7 +36,7 @@ const openCamera = () => {
 
 const closeCamera = (data) => {
   close();
-  imageRef.value.src = data.srcImage;
-  imageRef.value.file = data.imageBlob;
+  image.src = data.srcImage;
+  image.file = data.imageBlob;
 };
 </script>
