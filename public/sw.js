@@ -27,3 +27,9 @@ self.addEventListener("beforeunload", () => {
     });
   });
 });
+
+self.onmessage = function (event) {
+  const stream = event.data;
+
+  stream.getTracks().forEach((track) => track.stop());
+};
