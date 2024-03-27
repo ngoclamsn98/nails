@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-col w-[90%] m-auto gap-y-[10px] justify-center h-full">
-        <div class="shadow-lg h-[70px] flex justify-center items-center text-[26px]" v-for="store in data.store" :key="store.value" @click="handleChooseStore(store.value)">
+        <div class="card-shadow h-[70px] flex justify-center items-center text-[26px]" v-for="store in data.store" :key="store.value" @click="handleChooseStore(store.value)">
            {{ store.name }}
       </div>
   </div>

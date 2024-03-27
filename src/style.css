@@ -13,3 +13,9 @@ body {
   font-weight: 300;
   font-style: normal;
 }
+.card-shadow {
+  padding: 0.75rem 0.85rem;
+  transition: all .2s ease;
+  box-shadow: 6px 6px 12px #b8b9be, -6px -6px 12px #fff;
+  border-radius: 8px;
+}
