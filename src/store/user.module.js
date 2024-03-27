@@ -1,5 +1,6 @@
-import { setToken } from "@/utils";
+import { STORE } from "@/path";
 import router from "@/routes";
+import { setToken } from "@/utils";
 
 export default {
   namespaced: true,
@@ -10,9 +11,9 @@ export default {
     },
   },
   mutations: {
-    authenticate(state, { token }) {
+    authenticate(_, { token }) {
       setToken(token);
-      router?.push("/staff");
+      router?.push(STORE);
     },
   },
 };
