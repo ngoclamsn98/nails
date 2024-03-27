@@ -4,9 +4,9 @@ self.addEventListener('install', function(event) {
         return cache.addAll([
           '/',
           '/index.html',
-          '/favicon.ico', // Adjust this according to your favicon path
-          '/js/chunk-vendors.js', // Adjust this according to your build output
-          '/js/app.js' // Adjust this according to your build output
+          '/vite.svg', 
+          '/js/chunk-vendors.js',
+          '/js/app.js'
         ]);
       })
     );

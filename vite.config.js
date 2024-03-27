@@ -11,22 +11,22 @@ export default defineConfig({
         globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
         sourcemap: true
       },
-      includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
+      includeAssets: ['vite.svg'],
       manifest: {
-        name: 'My Awesome App',
-        short_name: 'MyApp',
-        description: 'My Awesome App description',
-        theme_color: '#ffffff',
+        name: 'Nails & Hair',
+        short_name: 'Nails & Hair',
+        description: 'Nails & Hair',
+        theme_color: '#FF69B4',
         icons: [
           {
-            src: 'pwa-192x192.png',
+            src: 'nails&hair.jpg',
             sizes: '192x192',
-            type: 'image/png'
+            type: 'image/jpg'
           },
           {
-            src: 'pwa-512x512.png',
+            src: 'nails&hair.jpg',
             sizes: '512x512',
-            type: 'image/png'
+            type: 'image/jpg'
           }
         ]
       }
