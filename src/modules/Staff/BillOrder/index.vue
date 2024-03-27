@@ -1,70 +1,63 @@
 <template>
-  <form
-    class="flex justify-start items-start w-[90%] h-full flex-col m-auto"
-    @submit="onSubmit"
-  >
-    <h1 class="text-[26px] mt-[10px]">Note Checkout Bill</h1>
-    <Packages />
-    <Images />
-    <div class="flex w-full border-t mt-[5px] border-gray">
-      <div class="mt-[10px] flex items-center h-[80px] w-[90%] m-auto">
-        <div class="mb-[13px] basis-8 inline-block">Tip</div>
-        <InputNumber
-          name="tip.money"
-          class="flex-1"
-        />
-        <SelectMoneyType
-          name="tip.type"
-          class="mb-[13px] ml-[5px]"
-        />
+  <Header :isBack="true" title="Note Checkout Bill">
+    <template  v-slot:content>
+      <form
+      class="flex justify-start items-start w-[90%] h-full flex-col m-auto"
+      @submit="onSubmit"
+    >
+      <Packages />
+      <Images />
+      <div class="flex w-full border-t mt-[5px] border-gray">
+        <div class="mt-[10px] flex items-center h-[80px] w-[90%] m-auto">
+          <div class="mb-[13px] basis-8 inline-block">Tip</div>
+          <InputNumber
+            name="tip.money"
+            class="flex-1"
+          />
+          <SelectMoneyType
+            name="tip.type"
+            class="mb-[13px] ml-[5px]"
+          />
+        </div>
       </div>
-    </div>
-    <div class="flex w-full border-t mt-[5px] border-gray">
-      <div class="mt-[10px] flex items-center h-[80px] w-[90%] m-auto">
-        <span class="mb-[13px] basis-8">Total</span>
-        <InputNumber name="total.money" />
-        <SelectMoneyType
-          name="total.type"
-          class="mb-[13px] ml-[5px]"
-        />
+      <div class="flex w-full border-t mt-[5px] border-gray">
+        <div class="mt-[10px] flex items-center h-[80px] w-[90%] m-auto">
+          <span class="mb-[13px] basis-8">Total</span>
+          <InputNumber name="total.money" />
+          <SelectMoneyType
+            name="total.type"
+            class="mb-[13px] ml-[5px]"
+          />
+        </div>
       </div>
-    </div>
-    <div class="flex w-full border-t mt-[15px] border-gray">
-      <div class="mt-[10px] flex items-center h-[80px] w-[90%] m-auto">
-        <span class="mb-[13px] basis-8">Note</span>
-        <TextArea name="note" />
+      <div class="flex w-full border-t mt-[15px] border-gray">
+        <div class="mt-[10px] flex items-center h-[80px] w-[90%] m-auto">
+          <span class="mb-[13px] basis-8">Note</span>
+          <TextArea name="note" />
+        </div>
       </div>
-    </div>
-    <div class="flex w-full border-t mt-[15px] border-gray">
-      <div class="mt-[10px] flex items-center h-[50px] w-[90%] m-auto">
-        <span class="basis-8 mr-[5px]">Store</span>
-        <Select
-          name="store"
-          :options="stores"
-          class="w-[100px]"
-        />
+      <div class="flex w-full justify-center mt-[20px]">
+        <Button class="mb-[20px]">
+          <template v-slot:text>Submit</template>
+        </Button>
       </div>
-    </div>
-    <div class="flex w-full justify-center mt-[20px]">
-      <Button class="mb-[20px]">
-        <template v-slot:text>Submit</template>
-      </Button>
-    </div>
-  </form>
+    </form>
+    </template>
+  </Header>
 </template>
   
 <script setup>
 import Button from "@/components/Button";
+import Header from "@/components/Header";
 import InputNumber from "@/components/InputNumber";
-import Select from "@/components/Select";
 import SelectMoneyType from "@/components/SelectMoneyType";
 import TextArea from "@/components/TextArea";
+import router from "@/routes";
 import { handleNextFocus } from "@/utils/handleNextFocus";
 import { useForm } from "vee-validate";
 import Images from "./components/Images";
 import Packages from "./components/Packages";
 import { validationSchema } from "./validate";
-import router from "@/routes";
 
 const { handleSubmit } = useForm({
   validationSchema: validationSchema,

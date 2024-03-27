@@ -1,0 +1,18 @@
+<template>
+    <div class="flex flex-col w-[90%] m-auto gap-y-[10px] justify-center h-full">
+        <div class="shadow-lg h-[70px] flex justify-center items-center text-[26px]" v-for="store in data.store" :key="store.value" @click="handleChooseStore(store.value)">
+           {{ store.name }}
+      </div>
+  </div>
+</template>
+<script setup>
+import router from "@/routes";
+import { STAFF } from "@/routes/path";
+import { setStore } from '@/utils';
+import { reactive } from 'vue';
+const data = reactive({store: [{name: 'Store1', value: 1},{name: 'Store2', value: 2}]});
+const handleChooseStore = (store) => {
+    router.push(STAFF.HOME)
+    setStore(store)
+}
+</script>

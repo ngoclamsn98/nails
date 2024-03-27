@@ -36,7 +36,6 @@ export const validationSchema = toTypedSchema(
         .optional(),
       type: z.string().optional(),
     }),
-    store: z.string().optional(),
     note: z.string().optional(),
     packages: z.array(PackagesSchema).optional(),
   })

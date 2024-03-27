@@ -2,7 +2,7 @@ import store from "@/store/index";
 import { getToken } from "@/utils";
 import NProgress from "nprogress";
 import { createRouter, createWebHistory } from "vue-router";
-import { LOGIN, STAFF } from "./path";
+import { LOGIN, STAFF, STORE } from "./path";
 const router = createRouter({
   history: createWebHistory(),
   routes: [
@@ -11,6 +11,12 @@ const router = createRouter({
       name: "Login",
       component: () => import("../pages/Login"),
       meta: { requiresAuth: false },
+    },
+    {
+      path: STORE,
+      name: "Store",
+      component: () => import("../pages/Store"),
+      meta: { requiresAuth: true },
     },
     {
       path: STAFF.HOME,
@@ -27,7 +33,7 @@ const router = createRouter({
     { 
       path: "/:catchAll(.*)", 
       name: 'All',
-      component: () => import("../pages/Home"),
+      component: () => import("../pages/Store"),
       meta: { requiresAuth: true },
     }
   ],
@@ -46,7 +52,7 @@ router.beforeEach(async (to, from, next) => {
   } else {
     if (token) {
       await handleInfoUser(to, from, next);
-      next(STAFF.HOME);
+      next(STORE);
     } else {
       next();
     }

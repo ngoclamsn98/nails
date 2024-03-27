@@ -1,6 +1,7 @@
 import { StaffPath } from "./declaration";
 
 const LOGIN: string = "/login";
+const STORE: string = "/store";
 
 const STAFF: StaffPath = {
   HOME: "/staff",
@@ -8,4 +9,4 @@ const STAFF: StaffPath = {
   PRODUCT: "/staff/product",
 };
 
-export { LOGIN, STAFF };
+export { LOGIN, STAFF, STORE };

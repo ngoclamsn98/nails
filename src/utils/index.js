@@ -18,3 +18,17 @@ export const removeToken = () => {
   }
   return null;
 };
+
+export const getStore = () => {
+  if (typeof window != undefined) {
+    return window.sessionStorage.getItem("store");
+  }
+  return null;
+};
+
+export const setStore = (store) => {
+  if (typeof window != undefined) {
+    return window.sessionStorage.setItem("token", JSON.stringify(store));
+  }
+  return null;
+};
