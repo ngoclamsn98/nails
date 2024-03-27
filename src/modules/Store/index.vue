@@ -13,7 +13,8 @@
 <script setup>
 import router from "@/routes";
 import { STAFF } from "@/routes/path";
-import { setStore } from "@/utils";
+import storageUtils from "@/utils/storageUtils";
+
 import { reactive } from "vue";
 const data = reactive({
   store: [
@@ -23,6 +24,6 @@ const data = reactive({
 });
 const handleChooseStore = (store) => {
   router.push(STAFF.HOME);
-  setStore(store);
+  storageUtils.setStorage({ key: store, store });
 };
 </script>

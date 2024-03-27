@@ -1,6 +1,6 @@
 import router from "@/routes";
 import { STORE } from "@/routes/path";
-import { setToken } from "@/utils";
+import storageUtils from "@/utils/storageUtils";
 
 export default {
   namespaced: true,
@@ -12,7 +12,7 @@ export default {
   },
   mutations: {
     authenticate(_, { token }) {
-      setToken(token);
+      storageUtils.setStorage({ key: "token", data: token });
       router?.push(STORE);
     },
   },
