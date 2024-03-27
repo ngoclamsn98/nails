@@ -1,5 +1,5 @@
-import { STORE } from "@/path";
 import router from "@/routes";
+import { STORE } from "@/routes/path";
 import { setToken } from "@/utils";
 
 export default {
