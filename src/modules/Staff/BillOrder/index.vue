@@ -1,47 +1,50 @@
 <template>
-  <Header :isBack="true" title="Note Checkout Bill">
-    <template  v-slot:content>
+  <Header
+    :isBack="true"
+    title="Note Checkout Bill"
+  >
+    <template v-slot:content>
       <form
-      class="flex justify-start items-start w-[90%] h-full flex-col m-auto"
-      @submit="onSubmit"
-    >
-      <Packages />
-      <Images />
-      <div class="flex w-full border-t mt-[5px] border-gray">
-        <div class="mt-[10px] flex items-center h-[80px] w-[90%] m-auto">
-          <div class="mb-[13px] basis-8 inline-block">Tip</div>
-          <InputNumber
-            name="tip.money"
-            class="flex-1"
-          />
-          <SelectMoneyType
-            name="tip.type"
-            class="mb-[13px] ml-[5px]"
-          />
+        class="flex justify-start items-start w-[90%] h-full flex-col m-auto"
+        @submit="onSubmit"
+      >
+        <Packages />
+        <Images />
+        <div class="flex w-full border-t mt-[5px] border-gray">
+          <div class="mt-[10px] flex items-center h-[80px] w-[90%] m-auto">
+            <div class="mb-[13px] basis-8 inline-block">Tip</div>
+            <InputNumber
+              name="tip.money"
+              class="flex-1"
+            />
+            <SelectMoneyType
+              name="tip.type"
+              class="mb-[13px] ml-[5px]"
+            />
+          </div>
         </div>
-      </div>
-      <div class="flex w-full border-t mt-[5px] border-gray">
-        <div class="mt-[10px] flex items-center h-[80px] w-[90%] m-auto">
-          <span class="mb-[13px] basis-8">Total</span>
-          <InputNumber name="total.money" />
-          <SelectMoneyType
-            name="total.type"
-            class="mb-[13px] ml-[5px]"
-          />
+        <div class="flex w-full border-t mt-[5px] border-gray">
+          <div class="mt-[10px] flex items-center h-[80px] w-[90%] m-auto">
+            <span class="mb-[13px] basis-8">Total</span>
+            <InputNumber name="total.money" />
+            <SelectMoneyType
+              name="total.type"
+              class="mb-[13px] ml-[5px]"
+            />
+          </div>
         </div>
-      </div>
-      <div class="flex w-full border-t mt-[15px] border-gray">
-        <div class="mt-[10px] flex items-center h-[80px] w-[90%] m-auto">
-          <span class="mb-[13px] basis-8">Note</span>
-          <TextArea name="note" />
+        <div class="flex w-full border-t mt-[15px] border-gray">
+          <div class="mt-[10px] flex items-center h-[80px] w-[90%] m-auto">
+            <span class="mb-[13px] basis-8">Note</span>
+            <TextArea name="note" />
+          </div>
         </div>
-      </div>
-      <div class="flex w-full justify-center mt-[20px]">
-        <Button class="mb-[20px]">
-          <template v-slot:text>Submit</template>
-        </Button>
-      </div>
-    </form>
+        <div class="flex w-full justify-center mt-[20px]">
+          <Button class="mb-[20px]">
+            <template v-slot:text>Submit</template>
+          </Button>
+        </div>
+      </form>
     </template>
   </Header>
 </template>

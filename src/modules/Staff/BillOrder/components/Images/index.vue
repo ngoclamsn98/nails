@@ -8,7 +8,10 @@
       >
         <CameraIcon />
       </div>
-      <ImagePreview :src="image.src" v-if="image.src"/>
+      <ImagePreview
+        :src="image.src"
+        v-if="image.src"
+      />
     </div>
   </div>
   <Camera
@@ -25,7 +28,7 @@ import useDisclosure from "@/hooks/useDisclosure";
 import { reactive, ref } from "vue";
 
 const cameraRef = ref();
-const image = reactive({ src: null, file: null })
+const image = reactive({ src: null, file: null });
 
 const { open, close, isOpen } = useDisclosure();
 

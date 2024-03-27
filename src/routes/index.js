@@ -30,12 +30,12 @@ const router = createRouter({
       component: () => import("../pages/Staff/BillOrder"),
       meta: { requiresAuth: true },
     },
-    { 
-      path: "/:catchAll(.*)", 
-      name: 'All',
+    {
+      path: "/:catchAll(.*)",
+      name: "All",
       component: () => import("../pages/Store"),
       meta: { requiresAuth: true },
-    }
+    },
   ],
 });
 
