@@ -1,51 +1,45 @@
-<script setup>
-import { onMounted, reactive, ref, watch } from "vue";
+<template>
+  <div class="w-full h-[100px] mt-[20px]">
+    <div class="w-[90%] m-auto flex items-start gap-x-[20px]">
+      <div>Image</div>
+      <div class="w-[50px] h-[50px]">
+        <label for="fileInput">
+          <span ref="startButtonRef">
+            <Camera />
+          </span>
+          <input
+            id="fileInput"
+            ref="fileInputRef"
+            type="file"
+            accept="image/*"
+            capture="environment"
+            @change="onFileInputChange"
+            class="hidden"
+          />
+        </label>
+      </div>
+      <ImagePreview :src="data.capturedImageSrc" />
+    </div>
+  </div>
 
-const ScreenState = {
-  Start: 0,
-  Initializing: 1,
-  InPreview: 2,
-  Captured: 3,
-};
+</template>
+
+<script setup>
+import Camera from "@/components/Icon/Camera";
+import ImagePreview from "@/components/ImagePreview";
+
+import { reactive, ref } from "vue";
 
 const data = reactive({
   capturedImageSrc: undefined,
 });
 
-const screenState = ref(ScreenState.Start);
 const startButtonRef = ref(null);
 const fileInputRef = ref(null);
-const imageRef = ref(null);
-const imageLinkRef = ref(null);
-
-const initialize = () => {
-  screenState.value = ScreenState.InPreview;
-};
-
-const takePicture = () => {
-  startButtonRef.value?.click();
-};
-
-const retry = () => {
-  const fileInput = fileInputRef.value;
-  if (fileInput) {
-    fileInput.value = "";
-  }
-  screenState.value = ScreenState.InPreview;
-};
-
-const download = () => {
-  const imageLink = imageLinkRef.value;
-  if (!imageLink) {
-    throw new Error("Implementation error, reference is null");
-  }
-  imageLink.click();
-};
 
 const onFileInputChange = () => {
   const fileInput = fileInputRef.value;
-  const image = imageRef.value;
-  if (!fileInput || !image) {
+  if (!fileInput) {
     throw new Error("Implementation error, reference is null");
   }
   if (!fileInput.value) {
@@ -56,128 +50,5 @@ const onFileInputChange = () => {
     throw new Error("Implementation error, reference is null");
   }
   data.capturedImageSrc = URL.createObjectURL(file);
-  screenState.value = ScreenState.Captured;
 };
-
-watch(screenState, (state) => {
-  if (state === ScreenState.Initializing) {
-    initialize();
-    return;
-  }
-});
-
-onMounted(() => {
-  screenState.value = ScreenState.Initializing;
-});
 </script>
-
-<template>
-  <div
-    class="initial-pane"
-    v-show="screenState === ScreenState.InPreview"
-  >
-    <label for="fileInput">
-      <span
-        class="btn btn-primary"
-        ref="startButtonRef"
-      >Start Camera</span>
-      <input
-        id="fileInput"
-        ref="fileInputRef"
-        type="file"
-        accept="image/*"
-        capture="environment"
-        @change="onFileInputChange"
-      />
-    </label>
-  </div>
-
-  <div
-    class="preview-pane"
-    v-show="screenState === ScreenState.Captured"
-  >
-    <a
-      :href="data.capturedImageSrc"
-      download="photo"
-      title="photo"
-      ref="imageLinkRef"
-    >
-      <img
-        ref="imageRef"
-        alt="captured image"
-        :src="data.capturedImageSrc"
-      /></a>
-  </div>
-
-  <div
-    class="control"
-    v-show="screenState > ScreenState.Initializing"
-  >
-    <div v-if="screenState === ScreenState.InPreview">
-      <button
-        class="btn btn-primary"
-        @click.prevent="takePicture"
-      >Start Camera</button>
-    </div>
-    <div v-if="screenState === ScreenState.Captured">
-      <button
-        class="btn btn-primary"
-        @click.prevent="retry"
-      >Retry</button>
-    </div>
-    <div v-if="screenState === ScreenState.Captured">
-      <button
-        class="btn btn-info"
-        @click.prevent="download"
-      >Download</button>
-    </div>
-  </div>
-</template>
-  
-  <style scoped>
-div.initial-pane {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 97vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-div.initial-pane input {
-  display: none;
-}
-
-div.preview-pane {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 97vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-div.preview-pane img {
-  max-width: 100%;
-  max-height: 100%;
-}
-
-div.control {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  padding: 0.5rem 0;
-  display: flex;
-  justify-content: center;
-  background-color: rgba(0, 0, 0, 0.2);
-}
-
-div.control > div {
-  margin: 0 6px;
-}
-</style>

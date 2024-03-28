@@ -3,7 +3,7 @@
     class="absolute w-full h-full z-[111] top-0 left-0 bg-[#d1d5db]"
     v-show="isOpen"
   >
-    <camera
+    <!-- <camera
       :resolution="{ width: 768, height: 1024 }"
       ref="camera"
       :autoplay="false"
@@ -16,7 +16,15 @@
         ></div>
       </div>
 
-    </camera>
+    </camera> -->
+    <input
+      id="fileInput"
+      ref="fileInputRef"
+      type="file"
+      accept="image/*"
+      capture="environment"
+      @change="onFileInputChange"
+    />
   </div>
 </template>
 <script>
@@ -35,29 +43,28 @@ export default defineComponent({
     },
   },
   setup() {
-    const camera = ref(null);
-    const cameraIsOn = ref(false);
+    const startButtonRef = ref(null);
+    const fileInputRef = ref(null);
+    const imageRef = ref(null);
 
-    const cameraOff = () => {
-      cameraIsOn.value ? camera.value.stop() : camera.value.start();
-      cameraIsOn.value = !cameraIsOn.value;
+    const onFileInputChange = () => {
+      const fileInput = fileInputRef.value;
+      const image = imageRef.value;
+      if (!fileInput || !image) {
+        throw new Error("Implementation error, reference is null");
+      }
+      if (!fileInput.value) {
+        return;
+      }
+      const file = fileInput.files?.[0];
+      if (!file) {
+        throw new Error("Implementation error, reference is null");
+      }
+      data.capturedImageSrc = URL.createObjectURL(file);
+      screenState.value = ScreenState.Captured;
     };
-
-    const takePicture = async function () {
-      const imageBlob = await camera.value.snapshot(
-        { width: 768, height: 1024 },
-        "image/png",
-        0.5
-      );
-      const url = URL.createObjectURL(imageBlob);
-
-      send_file(url);
-      cameraOff();
-      this.closeCamera({ srcImage: url, imageBlob });
-    };
-
-    const send_file = (blob_file) => {
-      // Your send_file logic here
+    const takePicture = () => {
+      startButtonRef.value?.click();
     };
 
     return {
@@ -66,6 +73,7 @@ export default defineComponent({
       cameraIsOn,
       takePicture,
       send_file,
+      onFileInputChange,
     };
   },
 });

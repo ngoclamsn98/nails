@@ -9,7 +9,7 @@
         @submit="onSubmit"
       >
         <Packages />
-        <Images />
+        <Camera />
         <div class="flex w-full border-t mt-[5px] border-gray">
           <div class="mt-[10px] flex items-center h-[80px] w-[90%] m-auto">
             <div class="mb-[13px] basis-8 inline-block">Tip</div>
@@ -58,7 +58,7 @@ import TextArea from "@/components/TextArea";
 import router from "@/routes";
 import { handleNextFocus } from "@/utils/handleNextFocus";
 import { useForm } from "vee-validate";
-import Images from "./components/Images";
+import Camera from "@/components/Camera_v2";
 import Packages from "./components/Packages";
 import { validationSchema } from "./validate";
 

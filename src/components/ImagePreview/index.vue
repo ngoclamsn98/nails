@@ -33,7 +33,6 @@ import useDisclosure from "@/hooks/useDisclosure";
 defineProps({
   src: { type: String, required: false },
 });
-
 const { open, close, isOpen } = useDisclosure();
 </script>
   
