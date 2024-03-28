@@ -8,10 +8,13 @@
     >
       {{ store.name }}
     </div>
+    <Camera />
   </div>
 </template>
 <script setup>
 import router from "@/routes";
+
+import Camera from "@/components/Camera_v2";
 import { STAFF } from "@/routes/path";
 import storageUtils from "@/utils/storageUtils";
 
