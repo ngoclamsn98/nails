@@ -31,6 +31,12 @@ const router = createRouter({
       meta: { requiresAuth: true },
     },
     {
+      path: STAFF.PRODUCT,
+      name: "Product",
+      component: () => import("../pages/Staff/Product"),
+      meta: { requiresAuth: true },
+    },
+    {
       path: "/:catchAll(.*)",
       name: "All",
       component: () => import("../pages/Store"),

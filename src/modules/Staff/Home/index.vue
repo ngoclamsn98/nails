@@ -10,7 +10,7 @@
             Bill Order
           </div>
         </RouterLink>
-        <RouterLink to="/bill-order">
+        <RouterLink to="/staff/product">
           <div class="shadow-[rgba(13,_38,_76,_0.19)_0px_9px_20px] rounded-sm h-[200px] flex justify-center items-center text-[26px]">
             Product
           </div>
