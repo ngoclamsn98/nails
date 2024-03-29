@@ -1,15 +1,15 @@
 <template>
-  <div class="bg-white mb-[60px] h-[60px] m-auto flex justify-start top-0 items-center fixed max-w-[500px] w-full shadow-lg shadow-slate-900/20 shadow-b-2 shadow-r-[3px] -shadow-spread-2">
+  <div class="bg-white h-[60px] m-auto flex justify-start top-0 items-center sticky max-w-[500px] w-full shadow-lg shadow-slate-900/20 shadow-b-2 shadow-r-[3px] -shadow-spread-2">
     <span
       @click="handleBack"
       v-if="isBack"
-      v-wave="{ color: 'blue' }" 
+      v-wave="{ color: 'blue' }"
     >
       <ArrowPrevious />
     </span>
     <span class="flex flex-1 justify-center text-[26px]">{{ title }}</span>
   </div>
-  <div class="mt-[70px] h-full">
+  <div class="h-full overflow-y-auto overflow-x-hidden mt-[20px]">
     <slot name="content" />
   </div>
 </template>

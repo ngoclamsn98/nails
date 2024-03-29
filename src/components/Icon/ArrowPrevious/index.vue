@@ -1,9 +1,17 @@
 <template>
-    <svg class="w-[24px] h-[24px]" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" height="800px" width="800px" version="1.1" id="XMLID_54_" viewBox="0 0 24 24" xml:space="preserve">
-        <g id="previous">
-            <g>
-                <polygon points="17.2,23.7 5.4,12 17.2,0.3 18.5,1.7 8.4,12 18.5,22.3   "/>
-            </g>
-        </g>
-    </svg>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    shape-rendering="geometricPrecision"
+    text-rendering="geometricPrecision"
+    image-rendering="optimizeQuality"
+    fill-rule="evenodd"
+    clip-rule="evenodd"
+    viewBox="0 0 512 404.43"
+    class="w-[24px] h-[24px] ml-2"
+  >
+    <path
+      fill-rule="nonzero"
+      d="m68.69 184.48 443.31.55v34.98l-438.96-.54 173.67 159.15-23.6 25.79L0 199.94 218.6.02l23.6 25.79z"
+    />
+  </svg>
 </template>

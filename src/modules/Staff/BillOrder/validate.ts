@@ -38,5 +38,6 @@ export const validationSchema = toTypedSchema(
     }),
     note: z.string().optional(),
     packages: z.array(PackagesSchema).optional(),
+    paymentType: z.string().optional(),
   })
 );
