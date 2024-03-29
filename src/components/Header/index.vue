@@ -1,8 +1,9 @@
 <template>
-  <div v-wave="{ color: 'blue' }" class="bg-white mb-[60px] h-[60px] m-auto flex justify-start top-0 items-center fixed max-w-[500px] w-full shadow-lg shadow-slate-900/20 shadow-b-2 shadow-r-[3px] -shadow-spread-2">
+  <div class="bg-white mb-[60px] h-[60px] m-auto flex justify-start top-0 items-center fixed max-w-[500px] w-full shadow-lg shadow-slate-900/20 shadow-b-2 shadow-r-[3px] -shadow-spread-2">
     <span
       @click="handleBack"
       v-if="isBack"
+      v-wave="{ color: 'blue' }" 
     >
       <ArrowPrevious />
     </span>
