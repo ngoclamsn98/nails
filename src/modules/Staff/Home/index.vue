@@ -2,6 +2,7 @@
   <Header
     :isBack="true"
     title="Home"
+    redirect="/store"
   >
     <template v-slot:content>
       <div class="flex flex-col w-[90%] m-auto gap-y-[10px] justify-center h-full">
