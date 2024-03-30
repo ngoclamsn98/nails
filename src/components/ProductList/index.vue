@@ -24,6 +24,8 @@
 </template>
 
 <script setup>
+import CheckBox from "@/components/CheckBox";
+import InputQuantity from "@/components/InputQuantity";
 import { numberWithCommas } from "@/utils/number";
 import { inject } from "vue";
 
