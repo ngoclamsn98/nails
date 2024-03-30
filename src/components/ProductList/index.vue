@@ -14,9 +14,12 @@
           />
           {{ item.name }}
         </span>
-        <span class="flex break-words w-[30%] ">{{ numberWithCommas(item.price) }} VNĐ</span>
+        <span class="flex break-words w-[30%]">{{ numberWithCommas(item.price * item.quantity) }} VNĐ</span>
         <span class="flex break-words w-[20%]">
-          <InputQuantity :name="`products.${index}.qty`" />
+          <InputQuantity
+            :name="`products.${index}.quantity`"
+            @changeQuantity="handleSetDataProduct"
+          />
         </span>
       </div>
     </div>
@@ -30,4 +33,5 @@ import { numberWithCommas } from "@/utils/number";
 import { inject } from "vue";
 
 const data = inject("data");
+const handleSetDataProduct = inject("handleSetDataProduct");
 </script>

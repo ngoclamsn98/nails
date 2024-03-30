@@ -15,23 +15,34 @@
 <script setup>
 import { numberWithCommas } from "@/utils/number";
 import { useField } from "vee-validate";
-import { ref, watch } from "vue";
+import { ref, watch, defineEmits } from "vue";
 
 const props = defineProps({
   name: { type: String, required: true },
 });
+
+const emit = defineEmits(["changeQuantity"]);
 
 const { value } = useField(() => props.name);
 
 const numericValue = ref(value.value || 1);
 
 watch(numericValue, (newValue) => {
-  numericValue.value = newValue.toString().replace(/\D/, "");
-  numericValue.value = numberWithCommas(numericValue.value);
-  value.value = +numericValue.value.split(",").join("");
+  if (!newValue) {
+    numericValue.value = 0;
+    value.value = 0;
+  } else {
+    numericValue.value = newValue.toString().replace(/[^\d]/g, "");
+    numericValue.value = numberWithCommas(+numericValue.value);
+    value.value = numericValue.value.split(",").join("");
+  }
+  emit("changeQuantity");
 });
 
 const updateQty = (type) => {
+  if (numericValue.value.toString().includes(",")) {
+    numericValue.value = numericValue.value.split(",").join("");
+  }
   if (type === "minus") {
     numericValue.value =
       numericValue.value - 1 <= 0 ? 0 : numericValue.value - 1;

@@ -51,13 +51,13 @@ router.beforeEach(async (to, from, next) => {
   const token = storageUtils.getStorage("token");
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     if (token) {
-      await handleInfoUser(to, from, next);
+      handleInfoUser(to, from, next);
       return;
     }
     next(LOGIN);
   } else {
     if (token) {
-      await handleInfoUser(to, from, next);
+      handleInfoUser(to, from, next);
       next(STORE);
     } else {
       next();

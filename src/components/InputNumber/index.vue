@@ -31,8 +31,13 @@ const { value, errorMessage } = useField(() => props.name);
 const numericValue = ref(value.value);
 
 watch(numericValue, (newValue) => {
-  numericValue.value = newValue.replace(/\D/, "");
-  numericValue.value = numberWithCommas(numericValue.value);
+  if (!newValue) {
+    numericValue.value = 0;
+    value.value = 0;
+    return;
+  }
+  numericValue.value = newValue.toString().replace(/[^\d]/g, "");
+  numericValue.value = numberWithCommas(+numericValue.value);
   value.value = +numericValue.value.split(",").join("");
 });
 </script>
