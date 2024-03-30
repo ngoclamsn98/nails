@@ -8,12 +8,21 @@
     </ButtonIcon>
     <SwipeModal
       v-model="isOpen"
-      snapPoint="300px"
-      :is-full-screen="false"
+      snapPoint="100%"
     >
-      <button @click="isOpen = false">Close modal</button>
-      Modal content
+      <div class="flex gap-x-[15px] mr-2 items-start">
+        <InputText
+          name="name"
+          placeholder="Nhập mã sản phẩm"
+        />
+        <Button class="h-[35px] mt-[8px]"><template v-slot:text>Tìm</template></Button>
+      </div>
+      <QrCode
+        @qrData="getQrData"
+        @openQr="openQr"
+      />
     </SwipeModal>
+    {{ resultQr }}
   </div>
 </template>
 
@@ -21,6 +30,22 @@
 import { SwipeModal } from "@takuma-ru/vue-swipe-modal";
 import ButtonIcon from "@/components/ButtonIcon";
 import Button from "@/components/Button";
-const isOpen = ref(false);
+import InputText from "@/components/InputText";
+import QrCode from "@/components/QrCode";
 import { ref } from "vue";
+
+const isOpen = ref(false);
+const snapPoint = ref("300px");
+const resultQr = ref(null);
+
+const getQrData = (data) => {
+  snapPoint.value = "300%";
+  resultQr.value = data;
+  isOpen.value = false;
+};
+
+const openQr = () => {
+  console.log("aaa");
+  snapPoint.value = "100%";
+};
 </script>

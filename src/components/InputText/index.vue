@@ -8,6 +8,7 @@
         :placeholder="placeholder"
         :data-focus="name"
         :name="name"
+        :autocomplete="autocomplete"
         class="h-[45px] border rounded-[20px] pl-[20px] flex-1 border-white focus-visible:border-[1px] focus-visible:outline-0 focus-visible:border-blue-500  transition duration-500 placeholder-gray-200 focus:outline-0 focus-within:outline-0"
       />
     </div>
@@ -22,6 +23,7 @@ const props = defineProps({
   type: { type: String, required: false, default: "text" },
   placeholder: { type: String, required: false },
   label: { type: String, required: false },
+  autocomplete: { type: String, default: "off" },
 });
 
 const { value, errorMessage } = useField(() => props.name);

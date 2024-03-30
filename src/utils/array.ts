@@ -13,3 +13,10 @@ export const updateQuantity = (arrQty, arrUpdate) => {
 
   return arrUpdate;
 };
+
+export const totalPrice = (arr) => {
+  if (!arr.length) return 0;
+  return arr.reduce((init, product) => {
+    return (init += product.quantity * product.price);
+  }, 0);
+};
