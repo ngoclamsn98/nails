@@ -20,13 +20,17 @@
       </div>
       <ImagePreview :src="data.capturedImageSrc" />
     </div>
+    <canvas
+      id="canvas"
+      class="hidden"
+    ></canvas>
   </div>
-
 </template>
 
 <script setup>
 import Camera from "@/components/Icon/Camera";
 import ImagePreview from "@/components/ImagePreview";
+import { handleResizeFile } from "@/utils/resizeImage";
 
 import { reactive, ref } from "vue";
 
@@ -49,6 +53,8 @@ const onFileInputChange = () => {
   if (!file) {
     throw new Error("Implementation error, reference is null");
   }
-  data.capturedImageSrc = URL.createObjectURL(file);
+  handleResizeFile(file).then((result) => {
+    data.capturedImageSrc = result;
+  });
 };
 </script>

@@ -4,6 +4,7 @@
     @click="open"
     class="w-[100px] h-[100px] bg-center object-cover"
     v-if="src"
+    id="preview"
   />
   <div
     v-show="isOpen"
