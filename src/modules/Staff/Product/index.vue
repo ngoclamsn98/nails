@@ -4,38 +4,15 @@
     title="Buy Product"
   >
     <template v-slot:content>
-      <form>
-        <div class="shadow-custom p-3 rounded w-[95%] m-auto mt-[5px] overflow-y-scroll max-h-[300px]">
-          <div
-            class="flex border-b border-gray-200 py-[10px] text-[14px] items-center gap-x-2"
-            v-for="(item,index) in data.products"
-            :key="index"
-          >
-            <span class="flex break-words w-[40%]">
-              <CheckBox
-                class="!w-[20px]"
-                :name="`products.${index}.selected`"
-                :sub="{name: `products.${index}.id`, value:item.id }"
-              />
-              {{ item.name }}
-            </span>
-            <span class="flex break-words w-[30%] ">{{ numberWithCommas(item.price) }} VNĐ</span>
-            <span class="flex break-words w-[20%]">
-              <InputQuantity :name="`products.${index}.qty`" />
-            </span>
-          </div>
-        </div>
-      </form>
-      <button @click="handleSubmitForm">aa</button>
+      <Product />
     </template>
   </Header>
 </template>
 
 <script setup>
 import Header from "@/components/Header";
-import CheckBox from "@/components/CheckBox";
-import InputQuantity from "@/components/InputQuantity";
-import { numberWithCommas } from "@/utils/number";
+import Product from "@/components/Product";
+import { provide } from "vue";
 import { reactive } from "vue";
 import { useForm } from "vee-validate";
 
@@ -55,4 +32,7 @@ const { handleSubmit } = useForm({
 const handleSubmitForm = handleSubmit((values) => {
   console.log(values);
 });
+
+provide("data", data);
+provide("handleSubmitForm", handleSubmitForm);
 </script>

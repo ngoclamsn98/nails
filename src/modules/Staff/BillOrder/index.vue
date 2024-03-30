@@ -49,7 +49,7 @@
           </div>
         </div>
         <div class="flex w-full justify-center mt-[20px]">
-          <Button class="mb-[20px]">
+          <Button class="mb-[20px] w-[150px]">
             <template v-slot:text>Submit</template>
           </Button>
         </div>

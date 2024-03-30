@@ -9,7 +9,7 @@
     </span>
     <span class="flex flex-1 justify-center text-[26px]">{{ title }}</span>
   </div>
-  <div class="h-full overflow-y-auto overflow-x-hidden mt-[20px]">
+  <div class="h-[90%] overflow-y-auto overflow-x-hidden mt-[20px]">
     <slot name="content" />
   </div>
 </template>
