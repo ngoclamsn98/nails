@@ -29,8 +29,13 @@ defineProps({
 const emit = defineEmits(["qrData", "closeQr"]);
 
 const onDecode = (data) => {
-  if (data) {
-    emit("qrData", data);
+  const obj = JSON.parse(data) || {};
+  if (
+    data ||
+    typeof obj !== "object" ||
+    !Object.keys(obj).some((key) => ["id", "price"].includes(key))
+  ) {
+    emit("qrData", JSON.parse(data));
   }
 };
 

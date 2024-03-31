@@ -35,7 +35,6 @@ const handleUpdateQuantityProduct = () => {
 
 const handleAddProduct = (product) => {
   data.products = [...data.products, product];
-  window.alert(JSON.stringify(data.products));
 };
 
 provide("data", data);
