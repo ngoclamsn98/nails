@@ -12,9 +12,7 @@ import SwipeProduct from "@/components/SwipeProduct";
 import { updateQuantity } from "@/utils/array";
 import { reactive, provide } from "vue";
 import { useForm } from "vee-validate";
-
-import { useNotification } from "vue-modern-notification";
-const toast = useNotification();
+import { notify } from "vue-modern-notification";
 
 const data = reactive({
   products: [],
@@ -35,8 +33,14 @@ const handleUpdateQuantityProduct = () => {
 const handleAddProduct = (product) => {
   if (!data.products.find((p) => p.id === product.id)) {
     data.products = [...data.products, product];
-    toast.success({
+    notify({
+      color: "primary",
       title: "Thêm mới sản phẩm thành công",
+      square: false,
+      position: "top-right",
+      duration: 1000,
+      border: "primary",
+      width: "70%",
     });
   }
 };
