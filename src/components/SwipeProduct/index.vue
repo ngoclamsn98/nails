@@ -52,6 +52,7 @@ const qrCode = ref();
 const getQrData = (data) => {
   handleAddProduct(data);
   close();
+  window.alert(JSON.stringify(data));
 };
 
 const handleOpenQr = () => {
