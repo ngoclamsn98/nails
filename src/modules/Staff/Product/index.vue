@@ -34,7 +34,8 @@ const handleUpdateQuantityProduct = () => {
 };
 
 const handleAddProduct = (product) => {
-  data.products = [...data.products, product];
+  if (!data.products.find((p) => p.id === product.id))
+    data.products = [...data.products, product];
 };
 
 provide("data", data);
