@@ -34,7 +34,7 @@ const handleUpdateQuantityProduct = () => {
 };
 
 const handleAddProduct = (product) => {
-  window.alert(product.id);
+  window.alert(JSON.parse(JSON.stringify(product)).id);
   data.products = [...data.products, product];
 };
 
