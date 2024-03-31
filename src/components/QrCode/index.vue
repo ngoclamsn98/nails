@@ -38,7 +38,7 @@ const onDecode = (data) => {
   //   !Object.keys(obj).some((key) => ["id", "price"].includes(key))
   // )
   //   return;
-  emit("qrData", JSON.parse(data));
+  emit("qrData", data);
 };
 
 const closeQr = () => {
