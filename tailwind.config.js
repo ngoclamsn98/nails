@@ -27,6 +27,7 @@ export default {
       "sky-500": "#0ea5e9",
       "sky-600": "#0284c7",
       black: "#000000",
+      green: "#22c55e",
     },
     extend: {
       boxShadow: {

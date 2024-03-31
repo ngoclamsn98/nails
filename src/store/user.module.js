@@ -12,7 +12,7 @@ export default {
   },
   mutations: {
     authenticate(_, { token }) {
-      storageUtils.setStorage({ key: "token", data: token });
+      storageUtils.set({ key: "token", data: token });
       router?.push(STORE);
     },
   },

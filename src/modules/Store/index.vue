@@ -5,7 +5,7 @@
       v-wave="{ color: 'blue' }"
       v-for="store in data.store"
       :key="store.value"
-      @click="handleChooseStore(store.value)"
+      @click="handleChooseStore(store)"
     >
       {{ store.name }}
     </div>
@@ -26,6 +26,6 @@ const data = reactive({
 });
 const handleChooseStore = (store) => {
   router.push(STAFF.HOME);
-  storageUtils.setStorage({ key: store, store });
+  storageUtils.set({ key: "store", data: store });
 };
 </script>

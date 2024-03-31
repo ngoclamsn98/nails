@@ -1,18 +1,18 @@
 class StorageUtils {
-  getStorage(key: string) {
+  get(key: string) {
     if (typeof window !== "undefined") {
-      return window.localStorage.getItem(key);
+      return JSON.parse(window.localStorage.getItem(key) || "{}");
     }
     return null;
   }
 
-  setStorage({ key, data }: { key: string; data: any }) {
+  set({ key, data }: { key: string; data: any }) {
     if (typeof window !== "undefined") {
       window.localStorage.setItem(key, JSON.stringify(data));
     }
   }
 
-  removeStorage(key: string) {
+  remove(key: string) {
     if (typeof window !== "undefined") {
       window.localStorage.removeItem(key);
     }

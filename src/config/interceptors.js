@@ -8,7 +8,7 @@ const axiosInstance = axios.create();
 axiosInstance.interceptors.request.use(
   function (config) {
     store.commit("loading/setLoading", { isLoading: true });
-    const token = storageUtils.getStorage("token");
+    const token = storageUtils.get("token");
     if (token) {
       config.headers["Authorization"] = `Bearer ${token}`;
     }
@@ -28,7 +28,7 @@ axiosInstance.interceptors.response.use(
   },
   function (error) {
     store.commit("loading/setLoading", { isLoading: false });
-    storageUtils.removeStorage("token");
+    storageUtils.remove("token");
     if (error.response.status == 401) {
       router?.push("/login");
     }

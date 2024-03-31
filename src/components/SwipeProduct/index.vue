@@ -15,7 +15,7 @@
           name="name"
           placeholder="Nhập mã sản phẩm"
         />
-        <Button class="h-[35px] mt-[8px]"><template v-slot:text>Tìm</template></Button>
+        <Button class="h-[35px]"><template v-slot:text>Tìm</template></Button>
       </div>
       <div class="flex justify-center">
         <span @click="handleOpenQr">
@@ -41,7 +41,6 @@ import InputText from "@/components/InputText";
 import QrCode from "@/components/QrCode";
 import QrCodeIcon from "@/components/Icon/QrCode";
 import useDisclosure from "@/hooks/useDisclosure";
-// import { inject } from "vue";
 import { ref, inject } from "vue";
 const { open: openQr, close, isOpen: isOpenQr } = useDisclosure();
 const handleAddProduct = inject("handleAddProduct");
