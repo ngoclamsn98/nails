@@ -2,7 +2,7 @@ import store from "@/store/index";
 import storageUtils from "@/utils/storageUtils";
 import NProgress from "nprogress";
 import { createRouter, createWebHistory } from "vue-router";
-import { LOGIN, STAFF, STORE } from "./path";
+import { LOGIN, STAFF, STORE, IMPORT } from "./path";
 const router = createRouter({
   history: createWebHistory(),
   routes: [
@@ -21,7 +21,7 @@ const router = createRouter({
     {
       path: STAFF.HOME,
       name: "Home",
-      component: () => import("../pages/Home"),
+      component: () => import("../pages/Staff/Home"),
       meta: { requiresAuth: true },
     },
     {
@@ -34,6 +34,24 @@ const router = createRouter({
       path: STAFF.PRODUCT,
       name: "Product",
       component: () => import("../pages/Staff/Product"),
+      meta: { requiresAuth: true },
+    },
+    {
+      path: IMPORT.HOME,
+      name: "Import",
+      component: () => import("../pages/Import/Home"),
+      meta: { requiresAuth: true },
+    },
+    {
+      path: IMPORT.IMPORT_PRODUCT,
+      name: "ImportProduct",
+      component: () => import("../pages/Import/Import"),
+      meta: { requiresAuth: true },
+    },
+    {
+      path: IMPORT.PRODUCT,
+      name: "BuyProduct",
+      component: () => import("../pages/Import/Product"),
       meta: { requiresAuth: true },
     },
     {

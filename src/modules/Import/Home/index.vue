@@ -6,15 +6,15 @@
   >
     <template v-slot:content>
       <div class="flex flex-col w-[90%] m-auto gap-y-[10px] justify-center h-full">
-        <RouterLink to="/staff/bill-order">
+        <RouterLink to="/import/import-product">
           <div
             class="shadow-[rgba(13,_38,_76,_0.19)_0px_9px_20px] rounded-sm h-[200px] flex justify-center items-center text-[26px]"
             v-wave="{ color: 'blue' }"
           >
-            Bill Order
+            Import Product
           </div>
         </RouterLink>
-        <RouterLink to="/staff/product">
+        <RouterLink to="/import/buy-product">
           <div
             class="shadow-[rgba(13,_38,_76,_0.19)_0px_9px_20px] rounded-sm h-[200px] flex justify-center items-center text-[26px]"
             v-wave="{ color: 'blue' }"
@@ -25,9 +25,8 @@
       </div>
     </template>
   </Header>
-
 </template>
-
+  
 <script setup>
 import Header from "@/components/Header";
 </script>
