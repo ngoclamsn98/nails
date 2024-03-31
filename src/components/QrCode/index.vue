@@ -30,6 +30,8 @@ const emit = defineEmits(["qrData", "closeQr"]);
 
 const onDecode = (data) => {
   const obj = JSON.parse(data) || {};
+
+  window.alert(JSON.stringify(obj));
   if (
     !data ||
     typeof obj !== "object" ||
