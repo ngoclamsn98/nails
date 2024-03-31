@@ -8,7 +8,7 @@
     </ButtonIcon>
     <SwipeModal
       v-model="isOpen"
-      snapPoint="100%"
+      snapPoint="300px"
     >
       <div class="flex gap-x-[15px] mr-2 items-start">
         <InputText
@@ -17,13 +17,20 @@
         />
         <Button class="h-[35px] mt-[8px]"><template v-slot:text>Tìm</template></Button>
       </div>
-      <QrCode
-        @qrData="getQrData"
-        @openQr="openQr"
-      />
+      <div class="flex justify-center">
+        <span @click="handleOpenQr">
+          <QrCodeIcon />
+        </span>
+      </div>
+
     </SwipeModal>
-    {{ resultQr }}
   </div>
+  <QrCode
+    @qrData="getQrData"
+    @closeQr="close"
+    ref="qrCode"
+    v-if="isOpenQr"
+  />
 </template>
 
 <script setup>
@@ -32,20 +39,29 @@ import ButtonIcon from "@/components/ButtonIcon";
 import Button from "@/components/Button";
 import InputText from "@/components/InputText";
 import QrCode from "@/components/QrCode";
-import { ref } from "vue";
+import QrCodeIcon from "@/components/Icon/QrCode";
+import useDisclosure from "@/hooks/useDisclosure";
+// import { inject } from "vue";
+import { ref, inject } from "vue";
+const { open: openQr, close, isOpen: isOpenQr } = useDisclosure();
+const handleAddProduct = inject("handleAddProduct");
 
 const isOpen = ref(false);
-const snapPoint = ref("300px");
-const resultQr = ref(null);
+const qrCode = ref();
 
 const getQrData = (data) => {
-  snapPoint.value = "300%";
-  resultQr.value = data;
-  isOpen.value = false;
+  handleAddProduct(data);
+  close();
 };
 
-const openQr = () => {
-  console.log("aaa");
-  snapPoint.value = "100%";
+const handleOpenQr = () => {
+  isOpen.value = false;
+  openQr();
 };
 </script>
+
+<style scoped>
+:deep(.modal-style) {
+  background-color: #f7f2fa !important;
+}
+</style>

@@ -24,7 +24,7 @@
           <span class="flex break-words w-[20%]">
             <InputQuantity
               :name="`products.${index}.quantity`"
-              @changeQuantity="handleSetDataProduct"
+              @changeQuantity="handleUpdateQuantityProduct"
             />
           </span>
         </div>
@@ -41,5 +41,5 @@ import { totalPrice } from "@/utils/array";
 import { inject } from "vue";
 
 const data = inject("data");
-const handleSetDataProduct = inject("handleSetDataProduct");
+const handleUpdateQuantityProduct = inject("handleUpdateQuantityProduct");
 </script>

@@ -18,12 +18,7 @@ import { reactive } from "vue";
 import { useForm } from "vee-validate";
 
 const data = reactive({
-  products: new Array(6).fill(0).map((_, index) => ({
-    name: "sữa ông thọ, dành cho người lớn tuổi, nhưng ai uống cũng được",
-    id: index + 1,
-    quantity: 1,
-    price: 2000000,
-  })),
+  products: [],
 });
 
 const { handleSubmit, values } = useForm({
@@ -34,11 +29,16 @@ const handleSubmitForm = handleSubmit((values) => {
   console.log(values);
 });
 
-const handleSetDataProduct = () => {
+const handleUpdateQuantityProduct = () => {
   data.products = updateQuantity(values.products, data.products);
+};
+
+const handleAddProduct = (product) => {
+  data.products = [...data.products, product];
 };
 
 provide("data", data);
 provide("handleSubmitForm", handleSubmitForm);
-provide("handleSetDataProduct", handleSetDataProduct);
+provide("handleUpdateQuantityProduct", handleUpdateQuantityProduct);
+provide("handleAddProduct", handleAddProduct);
 </script>

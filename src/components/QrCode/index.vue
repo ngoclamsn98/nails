@@ -1,41 +1,40 @@
 <template>
-  <div class="flex justify-center">
-    <span @click="openQr">
-      <QrCodeIcon />
-    </span>
-  </div>
-  <div
-    class="absolute w-full h-full z-[112221] top-0 left-0 bg-[#d1d5db]"
-    v-if="isOpen"
-  >
-    <QrStream @decode="onDecode" />
+  <div class="fixed w-full h-full z-[222222] top-0 left-0 bg-[#d1d5db]">
+    <QrStream @decode="onDecode">
+      <div class="absolute flex justify-center items-center w-full h-full">
+        <QrIcon />
+      </div>
+      <div
+        class="absolute top-5 right-5"
+        @click="closeQr"
+      >
+        <CloseIcon />
+      </div>
+    </QrStream>
   </div>
 
   <div id="qr-code-full-region"></div>
 </template>
 
 <script setup>
-import QrCodeIcon from "@/components/Icon/QrCode";
+import QrIcon from "@/components/Icon/QrIcon";
+import CloseIcon from "@/components/Icon/Close";
+
 import { QrStream } from "vue3-qr-reader";
-import useDisclosure from "@/hooks/useDisclosure";
 
 defineProps({
   isOpen: { type: Boolean, default: false },
 });
 
-const emit = defineEmits(["qrData", "openQr"]);
-
-const { open, close, isOpen } = useDisclosure();
+const emit = defineEmits(["qrData", "closeQr"]);
 
 const onDecode = (data) => {
   if (data) {
-    close();
     emit("qrData", data);
   }
 };
 
-const openQr = () => {
-  open();
-  emit("openQr");
+const closeQr = () => {
+  emit("closeQr");
 };
 </script>
