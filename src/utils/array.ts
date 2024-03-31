@@ -20,3 +20,20 @@ export const totalPrice = (arr) => {
     return (init += product.quantity * product.price);
   }, 0);
 };
+
+export const handleShowDeleteBtn = (arr) => {
+  if (!arr?.length) return false;
+  return arr.some((product) => product.selected);
+};
+
+export const deleteProduct = (arrSelected, arrProduct) => {
+  const ids = arrSelected
+    .map((product) => {
+      if (product.selected) {
+        return product.id;
+      }
+      return null;
+    })
+    .filter((product) => product);
+  return arrProduct.filter((product) => !ids.includes(product.id));
+};

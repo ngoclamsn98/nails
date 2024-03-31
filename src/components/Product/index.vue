@@ -1,6 +1,6 @@
 <template>
   <ProductList />
-  <ActionProduct />
+  <ActionProduct :isDeleteBtn="handleShowDeleteBtn(values.products)" />
   <SwipeProduct />
 </template>
 
@@ -9,10 +9,17 @@ import ProductList from "@/components/ProductList";
 import ActionProduct from "@/components/ActionProduct";
 import SwipeProduct from "@/components/SwipeProduct";
 
-import { updateQuantity } from "@/utils/array";
-import { reactive, provide } from "vue";
+import {
+  updateQuantity,
+  handleShowDeleteBtn,
+  deleteProduct,
+} from "@/utils/array";
+import { reactive, provide, getCurrentInstance } from "vue";
 import { useForm } from "vee-validate";
 import { notify } from "vue-modern-notification";
+
+const instance = getCurrentInstance();
+const app = instance.appContext.app;
 
 const data = reactive({
   products: [],
@@ -45,8 +52,33 @@ const handleAddProduct = (product) => {
   }
 };
 
+const handleDeleteProduct = () => {
+  app.$confirm({
+    title: "Bạn có muốn xóa những sản phẩm đã chọn ?",
+    button: {
+      yes: "Ok",
+      no: "No",
+    },
+    callback: (confirm) => {
+      if (confirm) {
+        data.products = deleteProduct(values.products, data.products);
+        notify({
+          color: "primary",
+          title: "Xóa sản phẩm thành công",
+          square: false,
+          position: "top-right",
+          duration: 1000,
+          border: "primary",
+          width: "70%",
+        });
+      }
+    },
+  });
+};
+
 provide("data", data);
 provide("handleSubmitForm", handleSubmitForm);
 provide("handleUpdateQuantityProduct", handleUpdateQuantityProduct);
 provide("handleAddProduct", handleAddProduct);
+provide("handleDeleteProduct", handleDeleteProduct);
 </script>

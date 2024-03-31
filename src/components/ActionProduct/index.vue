@@ -5,7 +5,8 @@
   >
     <Button
       class="bg-red w-[100px] h-[40px]"
-      @click="handleSubmitForm"
+      @click="handleDeleteProduct"
+      v-if="isDeleteBtn"
     >
       <template v-slot:text>Xóa</template>
     </Button>
@@ -21,7 +22,11 @@
 <script setup>
 import Button from "@/components/Button";
 import { inject } from "vue";
+defineProps({
+  isDeleteBtn: { type: Boolean, default: false },
+});
 
 const handleSubmitForm = inject("handleSubmitForm");
+const handleDeleteProduct = inject("handleDeleteProduct");
 const data = inject("data");
 </script>
