@@ -31,14 +31,13 @@ const emit = defineEmits(["qrData", "closeQr"]);
 const onDecode = (data) => {
   const obj = JSON.parse(data) || {};
 
-  window.alert(JSON.stringify(obj));
   if (
     !data ||
     typeof obj !== "object" ||
     !Object.keys(obj).some((key) => ["id", "price"].includes(key))
   )
     return;
-  emit("qrData", data);
+  emit("qrData", obj);
 };
 
 const closeQr = () => {
