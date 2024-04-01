@@ -66,7 +66,7 @@ const router = createRouter({
 router.beforeEach(async (to, from, next) => {
   NProgress.start();
   NProgress.set(1);
-  const token = storageUtils.get("token")?.id;
+  const token = !!Object.keys(storageUtils.get("token")).length;
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     if (token) {
       handleInfoUser(to, from, next);
