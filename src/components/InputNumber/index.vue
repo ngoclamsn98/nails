@@ -38,6 +38,11 @@ watch(numericValue, (newValue) => {
   }
   numericValue.value = newValue.toString().replace(/[^\d]/g, "");
   numericValue.value = numberWithCommas(+numericValue.value);
-  value.value = +numericValue.value.split(",").join("");
+
+  if (numericValue.value.toString().includes(",")) {
+    value.value = +numericValue.value.split(",").join("");
+  } else {
+    value.value = +numericValue.value;
+  }
 });
 </script>
