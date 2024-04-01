@@ -2,7 +2,7 @@ import store from "@/store/index";
 import storageUtils from "@/utils/storageUtils";
 import NProgress from "nprogress";
 import { createRouter, createWebHistory } from "vue-router";
-import { LOGIN, STAFF, STORE, IMPORT } from "./path";
+import { IMPORT, LOGIN, STAFF, STORE } from "./path";
 const router = createRouter({
   history: createWebHistory(),
   routes: [
@@ -66,7 +66,7 @@ const router = createRouter({
 router.beforeEach(async (to, from, next) => {
   NProgress.start();
   NProgress.set(1);
-  const token = storageUtils.get("token");
+  const token = storageUtils.get("token")?.id;
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     if (token) {
       handleInfoUser(to, from, next);

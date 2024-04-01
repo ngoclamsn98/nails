@@ -1,7 +1,7 @@
-import axios from "axios";
 import router from "@/routes";
-import storageUtils from "@/utils/storageUtils";
 import store from "@/store";
+import storageUtils from "@/utils/storageUtils";
+import axios from "axios";
 
 const axiosInstance = axios.create();
 
@@ -28,8 +28,8 @@ axiosInstance.interceptors.response.use(
   },
   function (error) {
     store.commit("loading/setLoading", { isLoading: false });
-    storageUtils.remove("token");
     if (error.response.status == 401) {
+      storageUtils.remove("token");
       router?.push("/login");
     }
     return Promise.reject(error);

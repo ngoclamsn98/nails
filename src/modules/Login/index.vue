@@ -8,7 +8,7 @@
       @submit="onSubmit"
       class="gap-y-[10px] flex flex-col w-[80%] m-auto justify-between"
     >
-      <h2 class="text-white text-[32px] mb-[20px]">Nail & Hair</h2>
+      <h2 class="text-white text-[32px] mb-[20px]">LITI <br />Nail & Hair</h2>
       <div class="flex flex-col justify-end">
         <InputText
           name="username"
@@ -33,14 +33,14 @@
 </template>
   
 <script setup>
-import InputText from "@/components/InputText";
-import ArrowNext from "@/components/Icon/ArrowNext";
 import ButtonIcon from "@/components/ButtonIcon";
+import ArrowNext from "@/components/Icon/ArrowNext";
+import InputText from "@/components/InputText";
 import { useStore } from "vuex";
 
+import { handleNextFocus } from "@/utils/handleNextFocus";
 import { useForm } from "vee-validate";
 import { validationSchema } from "./validate";
-import { handleNextFocus } from "@/utils/handleNextFocus";
 
 const store = useStore();
 
