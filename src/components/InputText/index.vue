@@ -9,7 +9,7 @@
         :data-focus="name"
         :name="name"
         :autocomplete="autocomplete"
-        class="h-[45px] border rounded-[20px] pl-[20px] flex-1 border-white focus-visible:border-[1px] focus-visible:outline-0 focus-visible:border-blue-500  transition duration-500 placeholder-gray-200 focus:outline-0 focus-within:outline-0 text-gray-200"
+        class="h-[45px] border rounded-[20px] pl-[20px] flex-1 border-white focus-visible:border-[1px] focus-visible:outline-0 focus-visible:border-blue-500  transition duration-500 placeholder-gray-200 focus:outline-0 focus-within:outline-0 text-gray"
       />
     </div>
     <span class="text-red text-[13px] ml-[15px]">{{ errorMessage }}</span>
