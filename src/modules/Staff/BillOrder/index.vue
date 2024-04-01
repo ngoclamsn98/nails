@@ -75,7 +75,7 @@ import { getCurrentInstance } from "vue";
 import Packages from "./components/Packages";
 import { validationSchema } from "./validate";
 
-const { handleSubmit } = useForm({
+const { handleSubmit, values } = useForm({
   validationSchema: validationSchema,
 });
 

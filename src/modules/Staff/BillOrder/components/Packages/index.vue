@@ -16,6 +16,7 @@
         :label="collapse.title"
         :name="`packages.${index}.selected`"
         :sub="{name: `packages.${index}.id`, value:collapse.id }"
+        :disabled="true"
       />
     </div>
     <Collapse

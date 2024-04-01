@@ -8,6 +8,7 @@
       :name="name"
       v-model="selectedValue"
       class="h-[30px] rounded-[10px] px-[5px]"
+      disabled
     >
       <option
         v-for="(option, index) in options"

@@ -8,6 +8,7 @@
         :data-focus="name"
         :name="name"
         class="w-[20px] h-[20px]"
+        :disabled="disabled"
       />
       <span
         class="w-[20px] h-[20px] inline-block"
@@ -16,7 +17,7 @@
       >
         <CheckBox />
       </span>
-      <span @click="value = !value">{{ label }}</span>
+      <span @click="handleChecked">{{ label }}</span>
     </div>
     <input
       v-if="sub"
@@ -35,11 +36,13 @@ import { onMounted } from "vue";
 const props = defineProps({
   name: { type: String, required: true },
   label: { type: String, required: false },
+  disabled: {type: Boolean, default: false},
   sub: {
     type: Object,
     required: false,
   },
 });
+
 const { value } = useField(() => props.name);
 const { value: valueSub } = useField(() => props?.sub?.name || "");
 
@@ -48,5 +51,12 @@ onMounted(() => {
     valueSub.value = props.sub.value;
   }
 });
+
+const handleChecked = () => {
+  if (!props.disabled) {
+    value.value = !value.value
+  }
+}
+
 </script>
   
