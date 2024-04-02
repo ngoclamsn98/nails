@@ -15,7 +15,10 @@
           name="name"
           placeholder="Nhập mã sản phẩm"
         />
-        <Button class="h-[35px]"><template v-slot:text>Tìm</template></Button>
+        <Button
+          class="h-[35px]"
+          @click="handleSearchProduct"
+        ><template v-slot:text>Tìm</template></Button>
       </div>
       <div class="flex justify-center">
         <span @click="handleOpenQr">
@@ -41,7 +44,9 @@ import InputText from "@/components/InputText";
 import QrCode from "@/components/QrCode";
 import useDisclosure from "@/hooks/useDisclosure";
 import { SwipeModal } from "@takuma-ru/vue-swipe-modal";
-import { inject, ref } from "vue";
+import { inject, ref, getCurrentInstance } from "vue";
+const instance = getCurrentInstance();
+const app = instance.appContext.app;
 const { open: openQr, close, isOpen: isOpenQr } = useDisclosure();
 const handleAddProduct = inject("handleAddProduct");
 
@@ -56,6 +61,22 @@ const getQrData = (data) => {
 const handleOpenQr = () => {
   isOpen.value = false;
   openQr();
+};
+
+const handleSearchProduct = () => {
+  isOpen.value = false;
+
+  // app.$confirm({
+  //   title: "Thêm Bill thành công",
+  //   button: {
+  //     yes: "Ok",
+  //   },
+  //   callback: (confirm) => {
+  //     // store.commit("user/authenticate", {
+  //     //   token: values,
+  //     // });
+  //   },
+  // });
 };
 </script>
 
