@@ -8,7 +8,7 @@
       <ArrowPrevious />
     </span>
     <span class="flex flex-1 justify-center text-[26px]">{{ title }}</span>
-    <span class="mr-4 text-green">{{ store }}</span>
+    <span class="mr-4 text-blue-500 font-bold">{{ store }}</span>
   </div>
   <div class="h-[90%] overflow-y-auto overflow-x-hidden mt-[20px]">
     <slot name="content" />
@@ -18,8 +18,8 @@
 <script setup>
 import ArrowPrevious from "@/components/Icon/ArrowPrevious";
 import router from "@/routes";
-import { onMounted, ref } from "vue";
 import storageUtils from "@/utils/storageUtils";
+import { onMounted, ref } from "vue";
 
 const props = defineProps({
   isBack: { type: Boolean, required: false, default: false },

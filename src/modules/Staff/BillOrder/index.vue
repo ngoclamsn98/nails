@@ -40,7 +40,10 @@
         </div>
         <div class="flex w-full border-t border-gray-400">
           <div class="w-[90%] mx-auto">
-            <InputNumber name="total.money" label="Total" :classes="classes" :isMoney="true"/>
+            <InputNumber name="total.money" label="Total" :classes="classes" :isMoney="true" :onBlur="onBlurTotal"/>
+            <div class="w-full flex justify-end">
+              <span class="text-gray-500 text-[14px]" v-show="amountUsd">{{ amountUsd }} USD</span>
+            </div>
           </div>
         </div>
         <div class="flex w-full border-t border-gray-400">
@@ -75,15 +78,18 @@ import SelectPaymentType from "@/components/SelectPaymentType";
 import TextArea from "@/components/TextArea";
 import router from "@/routes";
 import { STAFF } from "@/routes/path";
+import { handleConvertVndToUSD } from '@/utils/api';
 import { handleNextFocus } from "@/utils/handleNextFocus";
 import { useForm } from "vee-validate";
-import { getCurrentInstance, reactive, watch } from "vue";
+import { getCurrentInstance, reactive, ref, watch } from "vue";
 import Packages from "./components/Packages";
 import { validationSchema } from "./validate";
 
 const { handleSubmit, values, setFieldValue } = useForm({
   validationSchema: validationSchema,
 });
+
+const amountUsd = ref(null);
 
 const instance = getCurrentInstance();
 const app = instance.appContext.app;
@@ -120,4 +126,10 @@ const onSubmit = (e) => {
     })
   );
 };
+
+
+const onBlurTotal = async () => {
+  const amount = await handleConvertVndToUSD(values.total.money);
+  amountUsd.value = amount
+}
 </script>
