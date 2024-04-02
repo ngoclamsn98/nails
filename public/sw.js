@@ -3,7 +3,7 @@ self.addEventListener("install", function (event) {
     caches.open("my-pwa-cache").then(function (cache) {
       return cache.addAll([
         "/",
-        "/public/index.html",
+        "/index.html",
         "/vite.svg",
         "/js/chunk-vendors.js",
         "/js/app.js",
