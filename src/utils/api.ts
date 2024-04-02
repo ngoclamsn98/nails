@@ -2,6 +2,7 @@ import axios from "axios";
 import { CONVERT_VND_TO_USD } from '../constants/api';
 
 export const handleConvertVndToUSD = async (amount) => {
+  if (!amount) return;
   const response = await axios.get(CONVERT_VND_TO_USD);
   const data = response.data;
     
