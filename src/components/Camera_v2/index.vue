@@ -4,9 +4,7 @@
       <div>Image</div>
       <div class="w-[50px] h-[50px]">
         <label for="fileInput">
-          <span ref="startButtonRef">
-            <Camera />
-          </span>
+          <Camera />
           <input
             id="fileInput"
             ref="fileInputRef"
@@ -38,20 +36,19 @@ const data = reactive({
   capturedImageSrc: undefined,
 });
 
-const startButtonRef = ref(null);
 const fileInputRef = ref(null);
 
 const onFileInputChange = () => {
   const fileInput = fileInputRef.value;
   if (!fileInput) {
-    throw new Error("Implementation error, reference is null");
+    throw new Error("Lỗi máy ảnh");
   }
   if (!fileInput.value) {
     return;
   }
   const file = fileInput.files?.[0];
   if (!file) {
-    throw new Error("Implementation error, reference is null");
+    throw new Error("Lỗi máy ảnh");
   }
   handleResizeFile(file).then((result) => {
     data.capturedImageSrc = result;

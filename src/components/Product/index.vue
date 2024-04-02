@@ -5,24 +5,24 @@
 </template>
 
 <script setup>
-import ProductList from "@/components/ProductList";
 import ActionProduct from "@/components/ActionProduct";
+import ProductList from "@/components/ProductList";
 import SwipeProduct from "@/components/SwipeProduct";
 
 import {
-  updateQuantity,
-  handleShowDeleteBtn,
-  deleteProduct,
+deleteProduct,
+handleShowDeleteBtn,
+updateQuantity,
 } from "@/utils/array";
-import { reactive, provide, getCurrentInstance } from "vue";
 import { useForm } from "vee-validate";
+import { getCurrentInstance, provide, reactive } from "vue";
 import { notify } from "vue-modern-notification";
 
 const instance = getCurrentInstance();
 const app = instance.appContext.app;
 
 const data = reactive({
-  products: [],
+  products: [{id: 1, name: "1", price: 1}],
 });
 
 const { handleSubmit, values } = useForm({

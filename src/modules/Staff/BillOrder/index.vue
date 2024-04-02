@@ -34,12 +34,13 @@
               name="tip.money"
               label="Tip"
               :classes="classes"
+              :isMoney="true"
             />
           </div>
         </div>
         <div class="flex w-full border-t border-gray-400">
           <div class="w-[90%] mx-auto">
-            <InputNumber name="total.money" label="Total" :classes="classes"/>
+            <InputNumber name="total.money" label="Total" :classes="classes" :isMoney="true"/>
           </div>
         </div>
         <div class="flex w-full border-t border-gray-400">
