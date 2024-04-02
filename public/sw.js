@@ -7,6 +7,7 @@ self.addEventListener("install", function (event) {
         "/vite.svg",
         "/js/chunk-vendors.js",
         "/js/app.js",
+        "/public/_redirects/index.html", // Add the specific file to cache
       ]);
     })
   );
