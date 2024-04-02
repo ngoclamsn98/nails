@@ -22,7 +22,7 @@ const instance = getCurrentInstance();
 const app = instance.appContext.app;
 
 const data = reactive({
-  products: [{id: 1, name: "1", price: 1}],
+  products: [],
 });
 
 const { handleSubmit, values } = useForm({
