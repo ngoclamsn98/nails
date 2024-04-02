@@ -10,59 +10,47 @@
       >
         <Packages />
         <Camera />
-        <div class="flex w-full border-t mt-[5px] border-gray">
-          <div class="mt-[10px] flex items-center h-[80px] w-[90%] m-auto">
-            <div class="mb-[22px] basis-8 inline-block">Name</div>
+        <div class="flex w-full border-t border-gray-400">
+          <div class="w-[90%] mx-auto">
             <InputText
               name="clientName"
-              class="flex-1"
+              label="Name"
+              :classes="classes"
             />
           </div>
         </div>
-        <div class="flex w-full border-t mt-[5px] border-gray">
-          <div class="mt-[10px] flex items-center h-[80px] w-[90%] m-auto">
-            <div class="mb-[22px] basis-8 inline-block">Phone</div>
+        <div class="flex w-full border-t border-gray-400">
+          <div class="w-[90%] mx-auto">
             <InputText
               name="clientPhoneNumber"
-              class="flex-1"
+              label="Phone"
+              :classes="classes"
             />
           </div>
         </div>
-        <div class="flex w-full border-t mt-[5px] border-gray">
-          <div class="mt-[10px] flex items-center h-[80px] w-[90%] m-auto">
-            <div class="mb-[13px] basis-8 inline-block">Tip</div>
+        <div class="flex w-full border-t border-gray-400">
+          <div class="w-[90%] mx-auto">
             <InputNumber
               name="tip.money"
-              class="flex-1"
-            />
-            <SelectMoneyType
-              name="tip.type"
-              class="mb-[13px] ml-[5px]"
+              label="Tip"
+              :classes="classes"
             />
           </div>
         </div>
-        <div class="flex w-full border-t mt-[5px] border-gray">
-          <div class="mt-[10px] flex items-center h-[80px] w-[90%] m-auto">
-            <span class="mb-[13px] basis-8">Total</span>
-            <InputNumber name="total.money" />
-            <SelectMoneyType
-              name="total.type"
-              class="mb-[13px] ml-[5px]"
-            />
+        <div class="flex w-full border-t border-gray-400">
+          <div class="w-[90%] mx-auto">
+            <InputNumber name="total.money" label="Total" :classes="classes"/>
           </div>
         </div>
-        <div class="flex w-full border-t mt-[15px] border-gray">
-          <div class="mt-[10px] flex items-center h-[80px] w-[90%] m-auto">
-            <span class="mb-[13px] basis-8">Note</span>
-            <TextArea name="note" />
-          </div>
+        <div class="flex w-full border-t border-gray-400">
+          <div class="w-[90%] mx-auto"><TextArea name="note" class="flex-1" label="Note" :classes="classes"/></div>
         </div>
-        <div class="flex w-full border-t mt-[15px] border-gray">
-          <div class="mt-[10px] flex items-center h-[80px] w-[90%] m-auto gap-x-2">
-            <span class="mb-[13px]">Thanh toán</span>
+        <div class="flex w-full border-t border-gray-400">
+          <div class="w-[90%] mx-auto">
             <SelectPaymentType
               name="paymentType"
-              class="mb-[13px] ml-[5px]"
+              label="Thanh Toán"
+              class="mt-[20px]"
             />
           </div>
         </div>
@@ -78,18 +66,17 @@
 
 <script setup>
 import Button from "@/components/Button";
-import InputText from "@/components/InputText";
 import Camera from "@/components/Camera_v2";
 import Header from "@/components/Header";
 import InputNumber from "@/components/InputNumber";
-import SelectMoneyType from "@/components/SelectMoneyType";
+import InputText from "@/components/InputText";
 import SelectPaymentType from "@/components/SelectPaymentType";
 import TextArea from "@/components/TextArea";
 import router from "@/routes";
 import { STAFF } from "@/routes/path";
 import { handleNextFocus } from "@/utils/handleNextFocus";
 import { useForm } from "vee-validate";
-import { getCurrentInstance, watch } from "vue";
+import { getCurrentInstance, reactive, watch } from "vue";
 import Packages from "./components/Packages";
 import { validationSchema } from "./validate";
 
@@ -99,6 +86,8 @@ const { handleSubmit, values, setFieldValue } = useForm({
 
 const instance = getCurrentInstance();
 const app = instance.appContext.app;
+
+const classes = reactive({label: 'basis-12'})
 
 watch(values, (newValues) => {
   const arrIndex = {};

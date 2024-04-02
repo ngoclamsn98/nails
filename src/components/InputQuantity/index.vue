@@ -6,7 +6,7 @@
       :data-focus="name"
       :name="name"
       type="text"
-      class="w-[60px] text-[14px] border rounded-[5px] border-gray-200 focus-visible:border-[1px] focus-visible:outline-0 focus-visible:border-blue-500  transition duration-500 placeholder-gray-200 focus:outline-0 focus-within:outline-0"
+      class="w-[60px] text-[14px] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
     />
     <span @click="updateQty('plus')">＋</span>
   </div>
@@ -15,7 +15,7 @@
 <script setup>
 import { numberWithCommas } from "@/utils/number";
 import { useField } from "vee-validate";
-import { ref, watch, defineEmits } from "vue";
+import { defineEmits, ref, watch } from "vue";
 
 const props = defineProps({
   name: { type: String, required: true },

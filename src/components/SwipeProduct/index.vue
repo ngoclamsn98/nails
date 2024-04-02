@@ -10,7 +10,7 @@
       v-model="isOpen"
       snapPoint="300px"
     >
-      <div class="flex gap-x-[15px] mr-2 items-start">
+      <div class="flex gap-x-[15px] mr-2 items-center">
         <InputText
           name="name"
           placeholder="Nhập mã sản phẩm"
@@ -34,14 +34,14 @@
 </template>
 
 <script setup>
-import { SwipeModal } from "@takuma-ru/vue-swipe-modal";
-import ButtonIcon from "@/components/ButtonIcon";
 import Button from "@/components/Button";
+import ButtonIcon from "@/components/ButtonIcon";
+import QrCodeIcon from "@/components/Icon/QrCode";
 import InputText from "@/components/InputText";
 import QrCode from "@/components/QrCode";
-import QrCodeIcon from "@/components/Icon/QrCode";
 import useDisclosure from "@/hooks/useDisclosure";
-import { ref, inject } from "vue";
+import { SwipeModal } from "@takuma-ru/vue-swipe-modal";
+import { inject, ref } from "vue";
 const { open: openQr, close, isOpen: isOpenQr } = useDisclosure();
 const handleAddProduct = inject("handleAddProduct");
 

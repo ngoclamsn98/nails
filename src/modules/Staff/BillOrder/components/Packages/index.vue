@@ -2,7 +2,7 @@
   <div
     v-for="(collapse, index) in collapses"
     :key="collapse.title"
-    class="border-b w-full border-gray"
+    class="border-b w-full border-gray-400"
   >
     <div
       :id="'toggle_' + index"

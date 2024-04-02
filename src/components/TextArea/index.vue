@@ -1,16 +1,18 @@
 <template>
-  <div class="flex flex-col gap-y-[2px] w-full">
-    <div class="flex gap-x-[10px] items-center">
-      <span>{{ label }}</span>
-      <textarea
-        v-model="value"
-        :type="type"
-        :placeholder="placeholder"
-        :data-focus="name"
-        class="border h-[80px] rounded-[5px] pl-[5px] flex-1 border-gray-200 focus-visible:border-[1px] focus-visible:outline-0 focus-visible:border-blue-500  transition duration-500 placeholder-gray-200 focus:outline-0 focus-within:outline-0"
-      />
+  <div class="flex flex-col gap-y-[2px] w-full mt-[18px]">
+    <div class="flex gap-x-[10px] items-start">
+      <span class="inline-flex h-[80px] items-center" :class="classes.label">{{ label }}</span>
+      <div class="flex flex-col gap-y-[5px] h-[98px] flex-1 ">
+        <textarea
+          v-model="value"
+          :type="type"
+          :placeholder="placeholder"
+          :data-focus="name"
+          class="border h-[80px] border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        />
+        <span class="text-red text-[13px]">{{ errorMessage }}</span>
+      </div>
     </div>
-    <span class="text-red text-[13px] ml-[15px]">{{ errorMessage }}</span>
   </div>
 </template>
 
@@ -21,6 +23,7 @@ const props = defineProps({
   type: { type: String, required: false, default: "text" },
   placeholder: { type: String, required: false },
   label: { type: String, required: false },
+  classes: { type: Object, default: {} },
 });
 
 const { value, errorMessage } = useField(() => props.name);
