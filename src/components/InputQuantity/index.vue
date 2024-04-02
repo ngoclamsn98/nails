@@ -6,7 +6,7 @@
       :data-focus="name"
       :name="name"
       type="text"
-      class="w-[60px] text-[14px] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+      class="w-[60px] text-[14px] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 focus-visible:ring-blue-500 outline-none focus-visible:ring-1"
     />
     <span @click="updateQty('plus')">＋</span>
   </div>
