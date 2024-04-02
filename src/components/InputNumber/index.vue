@@ -2,7 +2,7 @@
   <div class="flex flex-col gap-y-[2px] w-full mt-[18px]">
     <div class="flex gap-x-[10px] items-start">
       <span class="inline-flex h-[42px] items-center" :class="classes.label">{{ label }}</span>
-      <div class="flex flex-col gap-y-[5px] h-[60px] flex-1 ">
+      <div class="flex flex-col h-[60px] flex-1 ">
         <input
           v-model="numericValue"
           :placeholder="placeholder"
