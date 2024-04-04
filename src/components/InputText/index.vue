@@ -7,7 +7,7 @@
       >{{ label }}</span>
       <div class="flex flex-col h-[60px] flex-1 ">
         <input
-          v-model="inputValue"
+          v-model="value"
           :type="type"
           :placeholder="placeholder"
           :data-focus="name"
