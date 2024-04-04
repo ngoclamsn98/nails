@@ -14,7 +14,10 @@ export const handleNextFocus = (e, cb) => {
 
   const inputs = document.querySelectorAll("[data-focus]");
 
-  const inputArray = Array.from(inputs) as HTMLInputElement[];
+  const inputArray = Array.from(inputs).filter(
+    (el) => el.ariaDisabled === "false"
+  ) as HTMLInputElement[];
+
   const index = inputArray.findIndex(
     (input) => input.getAttribute("data-focus") === focusName
   );

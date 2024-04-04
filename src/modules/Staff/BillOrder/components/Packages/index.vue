@@ -14,8 +14,8 @@
     >
       <CheckBox
         :label="collapse.title"
-        :name="`packages.${index}.selected`"
-        :sub="{name: `packages.${index}.id`, value:collapse.id }"
+        :name="`categories.${index}.selected`"
+        :sub="{name: `categories.${index}.id`, value:collapse.id }"
         :disabled="true"
       />
     </div>
@@ -33,8 +33,8 @@
         >
           <CheckBox
             :label="item.name"
-            :name="`packages.${index}.products.${position}.selected`"
-            :sub="{name: `packages.${index}.products.${position}.id`, value:item.id }"
+            :name="`categories.${index}.products.${position}.selected`"
+            :sub="{name: `categories.${index}.products.${position}.id`, value:item.id }"
           />
         </li>
       </ul>
@@ -46,8 +46,9 @@
 import CheckBox from "@/components/CheckBox";
 import { ref } from "vue";
 import { Collapse } from "vue-collapsed";
+import InputNumber from "@/components/InputNumber";
 
-const packages = [
+const categories = [
   {
     title: "Tóc",
     id: 1,
@@ -68,12 +69,14 @@ const packages = [
 ];
 
 const collapses = ref(
-  packages.map(({ title, products, id }) => ({
-    id,
-    title,
-    products,
-    isExpanded: false,
-  }))
+  categories.length
+    ? categories.map(({ title, products, id }) => ({
+        id,
+        title,
+        products,
+        isExpanded: false,
+      }))
+    : []
 );
 
 function handleIndividual(selectedIndex) {

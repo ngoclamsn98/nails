@@ -5,10 +5,11 @@ const ProductSchema = z
   .object({
     selected: z.boolean().optional(),
     id: z.number().optional(),
+    price: z.any().optional(),
   })
   .optional();
 
-const PackagesSchema = z
+const CategorySchema = z
   .object({
     selected: z.boolean().optional(),
     id: z.number().optional(),
@@ -37,7 +38,7 @@ export const validationSchema = toTypedSchema(
       type: z.string().optional(),
     }),
     note: z.string().optional(),
-    packages: z.array(PackagesSchema).optional(),
+    categories: z.array(CategorySchema).optional(),
     paymentType: z.number().optional(),
     clientPhoneNumber: z.string().optional(),
     clientName: z.string().optional(),
