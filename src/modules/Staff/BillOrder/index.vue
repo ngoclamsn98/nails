@@ -46,6 +46,7 @@
               :classes="classes"
               :isMoney="true"
               :onBlur="onBlurTotal"
+              :disabled="true"
             />
             <div class="w-full flex justify-end">
               <span
