@@ -36,6 +36,11 @@
             :name="`categories.${index}.products.${position}.selected`"
             :sub="{name: `categories.${index}.products.${position}.id`, value:item.id }"
           />
+          <InputNumber
+            :name="`categories.${index}.products.${position}.price`"
+            :isMoney="true"
+            :classes="classes.input"
+          />
         </li>
       </ul>
     </Collapse>
@@ -44,9 +49,11 @@
     
 <script setup>
 import CheckBox from "@/components/CheckBox";
-import { ref } from "vue";
+import { reactive, ref } from "vue";
 import { Collapse } from "vue-collapsed";
 import InputNumber from "@/components/InputNumber";
+
+const classes = reactive({ input: "h-[30px] w-[200px]" });
 
 const categories = [
   {

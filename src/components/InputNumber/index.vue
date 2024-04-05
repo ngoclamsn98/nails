@@ -18,7 +18,9 @@
             @blur="onBlur"
             type="text"
             class="h-[42px] border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 focus-visible:ring-blue-500 outline-none focus-visible:ring-1 disabled:bg-gray-100"
+            :class="classes.input"
           />
+          {{ classes.input }}
           <div
             class="absolute right-0 flex items-center rounded-r-lg text-[12px] border-l border-gray-300 h-full top-0 w-[30px] text-black justify-center"
             v-if="isMoney"
@@ -34,7 +36,7 @@
 <script setup>
 import { numberWithCommas } from "@/utils/number";
 import { useField } from "vee-validate";
-import { ref, watch } from "vue";
+import { onUpdated, ref, watch } from "vue";
 
 const props = defineProps({
   name: { type: String, required: true },

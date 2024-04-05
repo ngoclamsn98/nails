@@ -57,12 +57,14 @@
           </div>
         </div>
         <div class="flex w-full border-t border-gray-400">
-          <div class="w-[90%] mx-auto"><TextArea
+          <div class="w-[90%] mx-auto">
+            <TextArea
               name="note"
               class="flex-1"
               label="Note"
               :classes="classes"
-            /></div>
+            />
+          </div>
         </div>
         <div class="flex w-full border-t border-gray-400">
           <div class="w-[90%] mx-auto">
@@ -94,7 +96,7 @@ import TextArea from "@/components/TextArea";
 import { handleConvertVndToUSD } from "@/utils/api";
 import { handleNextFocus } from "@/utils/handleNextFocus";
 import { useForm } from "vee-validate";
-import { getCurrentInstance, reactive, ref, watch } from "vue";
+import { onMounted, reactive, ref, watch } from "vue";
 import Packages from "./components/Packages";
 import { validationSchema } from "./validate";
 
@@ -127,4 +129,8 @@ const onBlurTotal = async () => {
   const amount = await handleConvertVndToUSD(values.total.money);
   amountUsd.value = amount;
 };
+
+onMounted(() => {
+  setFieldValue(`tip.money`, 111);
+});
 </script>
