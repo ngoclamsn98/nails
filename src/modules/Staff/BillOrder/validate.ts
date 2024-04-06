@@ -28,15 +28,12 @@ export const validationSchema = toTypedSchema(
         .min(1, { message: "Giá tiền không hợp lệ" }),
       type: z.string().optional(),
     }),
-    tip: z.object({
-      money: z
-        .number({
-          required_error: "Giá tiền không hợp lệ",
-          invalid_type_error: "Giá tiền không hợp lệ",
-        })
-        .optional(),
-      type: z.string().optional(),
-    }),
+    tip: z
+      .number({
+        required_error: "Giá tiền không hợp lệ",
+        invalid_type_error: "Giá tiền không hợp lệ",
+      })
+      .optional(),
     note: z.string().optional(),
     categories: z.array(CategorySchema).optional(),
     paymentType: z.number().optional(),

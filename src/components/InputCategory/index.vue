@@ -1,11 +1,8 @@
 <template>
-  <div class="flex flex-col gap-y-[2px] w-full mt-[18px]">
+  <div class="flex flex-col gap-y-[2px] w-[70%]">
     <div class="flex gap-x-[10px] items-start">
-      <span
-        class="inline-flex h-[42px] items-center"
-        :class="classes.label"
-      >{{ label }}</span>
-      <div class="flex flex-col h-[60px] flex-1 ">
+      <span class="inline-flex h-[30px] items-center">{{ label }}</span>
+      <div class="flex flex-col flex-1 ">
         <div class="relative">
           <input
             v-model="numericValue"
@@ -16,8 +13,7 @@
             :disabled="disabled"
             @blur="onBlur"
             type="text"
-            class="h-[42px] border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 focus-visible:ring-blue-500 outline-none focus-visible:ring-1 disabled:bg-gray-100"
-            :class="classes.input"
+            class="h-[30px] border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 focus-visible:ring-blue-500 outline-none focus-visible:ring-1 disabled:bg-gray-100"
           />
           <div
             class="absolute right-0 flex items-center rounded-r-lg text-[12px] border-l border-gray-300 h-full top-0 w-[30px] text-black justify-center"
@@ -34,16 +30,17 @@
 <script setup>
 import { numberWithCommas } from "@/utils/number";
 import { useField } from "vee-validate";
-import { ref, watch } from "vue";
+import { onMounted, ref, watch } from "vue";
+import { any } from "zod";
 
 const props = defineProps({
   name: { type: String, required: true },
   placeholder: { type: String, required: false },
   label: { type: String, required: false },
-  classes: { type: Object, default: {} },
-  isMoney: { type: Boolean, default: false },
+  isMoney: { type: Boolean, default: true },
   onBlur: { type: Function, required: false },
   disabled: { type: Boolean, default: false },
+  defaultValue: { type: any, required: false },
 });
 
 const { value, errorMessage } = useField(() => props.name);
@@ -63,6 +60,13 @@ watch(numericValue, (newValue) => {
     value.value = +numericValue.value.split(",").join("");
   } else {
     value.value = +numericValue.value;
+  }
+});
+
+onMounted(() => {
+  if (props.defaultValue) {
+    numericValue.value = numberWithCommas(+props.defaultValue);
+    value.value = props.defaultValue;
   }
 });
 </script>

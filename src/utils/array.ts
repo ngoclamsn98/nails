@@ -37,3 +37,16 @@ export const deleteProduct = (arrSelected, arrProduct) => {
     .filter((product) => product);
   return arrProduct.filter((product) => !ids.includes(product.id));
 };
+
+export const productToKey = (data) => {
+  const productCategoryMap = {};
+
+  data?.forEach((pkg) => {
+    pkg?.categories?.forEach((category) => {
+      category?.products?.forEach((product) => {
+        productCategoryMap[product.id] = category.id;
+      });
+    });
+  });
+  return productCategoryMap;
+};

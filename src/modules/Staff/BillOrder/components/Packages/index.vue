@@ -12,82 +12,75 @@
       :aria-controls="'collapse_' + index"
       class="w-[90%] m-auto flex justify-start py-[5px]"
     >
-      <CheckBox
-        :label="collapse.title"
-        :name="`categories.${index}.selected`"
-        :sub="{name: `categories.${index}.id`, value:collapse.id }"
-        :disabled="true"
-      />
+      {{ collapse.name }}
     </div>
     <Collapse
       :when="collapse.isExpanded"
       :id="'collapse_' + index"
       role="region"
-      class="CollapseContent  w-[80%] m-auto"
+      class="CollapseContent w-[80%] m-auto"
     >
-      <ul class="ml-[10px] flex flex-col mt-[5px]">
-        <li
-          v-for="(item, position) in collapse.products"
-          :key="item.id"
-          class="mb-[10px]"
-        >
-          <CheckBox
-            :label="item.name"
-            :name="`categories.${index}.products.${position}.selected`"
-            :sub="{name: `categories.${index}.products.${position}.id`, value:item.id }"
-          />
-          <InputNumber
-            :name="`categories.${index}.products.${position}.price`"
-            :isMoney="true"
-            :classes="classes.input"
-          />
-        </li>
-      </ul>
+      <div
+        v-for="(category, categoryIndex) in collapse.categories"
+        :key="category.id"
+        class="flex flex-col"
+      >
+        <CheckBox
+          :label="category.name"
+          :name="`packages.${index}.categories.${categoryIndex}.id`"
+          :checkedValue="category.id"
+        />
+        <ul class="ml-[30px] flex flex-col mt-[5px]">
+          <li
+            v-for="(product, position) in category.products"
+            :key="product.id"
+            class="mb-[10px]"
+          >
+            <CheckBox
+              :label="product.name"
+              :name="`packages.${index}.categories.${categoryIndex}.products.${position}.id`"
+              :checkedValue="product.id"
+            />
+            <div
+              class="flex justify-end text-[13px]"
+              v-if="product.price"
+            >{{numberWithCommas(product.price) }} vnđ
+              <InputCategory
+                :name="`packages.${index}.categories.${categoryIndex}.products.${position}.price`"
+                class="hidden"
+                :defaultValue="product.price"
+              />
+            </div>
+            <div
+              v-else
+              class="flex w-full justify-end"
+            >
+              <InputCategory
+                :name="`packages.${index}.categories.${categoryIndex}.products.${position}.price`"
+                :disabled="!checkedArr.includes(product.id)"
+              />
+            </div>
+          </li>
+        </ul>
+      </div>
     </Collapse>
   </div>
 </template>
     
 <script setup>
 import CheckBox from "@/components/CheckBox";
-import { reactive, ref } from "vue";
+import { reactive, inject } from "vue";
 import { Collapse } from "vue-collapsed";
-import InputNumber from "@/components/InputNumber";
+import InputCategory from "@/components/InputCategory";
+import { numberWithCommas } from "@/utils/number";
+import { useFieldValue } from "vee-validate";
 
-const classes = reactive({ input: "h-[30px] w-[200px]" });
+const handleIndividual = inject("handleIndividual");
+const checkedArr = inject("checkedArr") || [];
 
-const categories = [
-  {
-    title: "Tóc",
-    id: 1,
-    products: [
-      { name: "Nhuộm", id: 3 },
-      { name: "Uốn", id: 4 },
-    ],
-  },
-  {
-    title: "Nails",
-    id: 2,
-    products: [
-      { name: "làm móng tay", id: 1 },
-      { name: "làm móng chân", id: 2 },
-      { name: "sơn móng", id: 3 },
-    ],
-  },
-];
+const classes = reactive({ input: "" });
 
-const collapses = ref(
-  categories.length
-    ? categories.map(({ title, products, id }) => ({
-        id,
-        title,
-        products,
-        isExpanded: false,
-      }))
-    : []
-);
-
-function handleIndividual(selectedIndex) {
-  collapses.value[selectedIndex].isExpanded =
-    !collapses.value[selectedIndex].isExpanded;
-}
+const { collapses } = defineProps({
+  collapses: { type: Array, default: [] },
+});
 </script>

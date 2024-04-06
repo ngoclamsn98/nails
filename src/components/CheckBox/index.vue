@@ -2,61 +2,47 @@
   <div class="flex flex-col gap-y-[2px] w-full">
     <div class="flex gap-x-[10px] items-center">
       <input
-        v-if="!value"
-        v-model="value"
-        type="checkbox"
-        :data-focus="name"
-        :name="name"
+        v-if="!checked"
         class="w-[20px] h-[20px]"
         :disabled="disabled"
+        :value="checkedValue"
+        :checked="checked"
+        :name="name"
+        @change="handleChange"
+        type="checkbox"
       />
       <span
         class="w-[20px] h-[20px] inline-block"
-        @click="value = false"
-        v-if="value"
+        @click="handleChange"
+        v-if="checked"
       >
         <CheckBox />
       </span>
       <span @click="handleChecked">{{ label }}</span>
     </div>
-    <input
-      v-if="sub"
-      type="text"
-      class="hidden"
-      :name="sub.name"
-      v-model="valueSub"
-    >
+
   </div>
 </template>
   
 <script setup>
 import CheckBox from "@/components/Icon/CheckBox";
 import { useField } from "vee-validate";
-import { onMounted } from "vue";
 const props = defineProps({
   name: { type: String, required: true },
   label: { type: String, required: false },
-  disabled: {type: Boolean, default: false},
-  sub: {
-    type: Object,
-    required: false,
-  },
+  disabled: { type: Boolean, default: false },
+  checkedValue: { type: String, required: false },
 });
 
-const { value } = useField(() => props.name);
-const { value: valueSub } = useField(() => props?.sub?.name || "");
-
-onMounted(() => {
-  if (props.sub) {
-    valueSub.value = props.sub.value;
-  }
+const { checked, handleChange } = useField(() => props.name, undefined, {
+  type: "checkbox",
+  checkedValue: props.checkedValue,
 });
 
 const handleChecked = () => {
   if (!props.disabled) {
-    value.value = !value.value
+    handleChange();
   }
-}
-
+};
 </script>
   
