@@ -94,7 +94,7 @@ import InputText from "@/components/InputText";
 import SelectPaymentType from "@/components/SelectPaymentType";
 import TextArea from "@/components/TextArea";
 import { handleConvertVndToUSD, handleGetPackage } from "@/utils/api";
-import { productToKey } from "@/utils/array";
+import { productToKey, mapValueProductToCategory } from "@/utils/array";
 import { handleNextFocus } from "@/utils/handleNextFocus";
 import { useForm } from "vee-validate";
 import { onMounted, provide, reactive, ref, watch } from "vue";
@@ -151,7 +151,15 @@ const handleTotalAmount = (values) => {
 let timeout;
 
 watch(values, (newValues) => {
-  handleCheckedValue(newValues);
+  const ids = handleCheckedValue(newValues);
+  const keyValue = mapValueProductToCategory(
+    ids.map((id) => id && id.toString()),
+    data.categories
+  );
+
+  Object.keys(keyValue).forEach((key, index) => {
+    setFieldValue(key, Object.values(keyValue)[index]);
+  });
 
   const amountVnd = handleTotalAmount(newValues);
 

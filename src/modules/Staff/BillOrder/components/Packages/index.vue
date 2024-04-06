@@ -29,6 +29,7 @@
           :label="category.name"
           :name="`packages.${index}.categories.${categoryIndex}.id`"
           :checkedValue="category.id"
+          :disabled="true"
         />
         <ul class="ml-[30px] flex flex-col mt-[5px]">
           <li

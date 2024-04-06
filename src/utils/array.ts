@@ -41,12 +41,33 @@ export const deleteProduct = (arrSelected, arrProduct) => {
 export const productToKey = (data) => {
   const productCategoryMap = {};
 
-  data?.forEach((pkg) => {
-    pkg?.categories?.forEach((category) => {
+  data?.forEach((pkg, index) => {
+    pkg?.categories?.forEach((category, position) => {
       category?.products?.forEach((product) => {
-        productCategoryMap[product.id] = category.id;
+        productCategoryMap[product.id] = {
+          name: `packages.${index}.categories.${position}.id`,
+          category: category.id,
+        };
       });
     });
   });
+
   return productCategoryMap;
+};
+
+export const mapValueProductToCategory = (arr, obj) => {
+  if (!Object.keys(obj).length) return {};
+
+  let transformObj = {};
+
+  Object.values(obj).forEach((item: any) => {
+    transformObj[item.name] = null;
+  });
+
+  arr.forEach((id) => {
+    const itemName = obj[id]?.name;
+    transformObj[itemName] = obj[id]?.category;
+  });
+
+  return transformObj;
 };
