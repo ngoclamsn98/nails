@@ -78,7 +78,7 @@ export default defineComponent({
 
     const takePicture = async () => {
       const imageBlob = await camera.value.snapshot(
-        { width: 640, height: 480 },
+        { width: 480, height: 687 },
         "image/png",
         0.5
       );
