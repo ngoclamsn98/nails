@@ -94,23 +94,38 @@ import InputText from "@/components/InputText";
 import SelectPaymentType from "@/components/SelectPaymentType";
 import TextArea from "@/components/TextArea";
 import { handleConvertVndToUSD, handleGetPackage } from "@/utils/api";
-import { productToKey, mapValueProductToCategory } from "@/utils/array";
+import {
+  productToKey,
+  mapValueProductToCategory,
+  handleFormData,
+} from "@/utils/array";
 import { handleNextFocus } from "@/utils/handleNextFocus";
 import { useForm } from "vee-validate";
-import { onMounted, provide, reactive, ref, watch } from "vue";
+import {
+  onMounted,
+  provide,
+  reactive,
+  ref,
+  watch,
+  getCurrentInstance,
+} from "vue";
 import Packages from "./components/Packages";
 import InputCategory from "@/components/InputCategory";
 import { numberWithCommas } from "@/utils/number";
+import { validationSchema } from "./validate";
 
 const amountUsd = ref(null);
 const total = ref(null);
 const checkedArr = ref([]);
 
+const instance = getCurrentInstance();
+const app = instance.appContext.app;
+
 const classes = reactive({ label: "basis-12" });
 const data = reactive({ collapses: [], categories: {} });
 
 const { handleSubmit, values, setFieldValue } = useForm({
-  // validationSchema: validationSchema,
+  validationSchema: validationSchema,
 });
 
 const handleCheckedValue = (values) => {
@@ -176,7 +191,16 @@ const onSubmit = (e) => {
   handleNextFocus(
     e,
     handleSubmit((values) => {
-      console.log(values, "values");
+      const result = handleFormData(values);
+      if (typeof result === "string") {
+        app.$confirm({
+          title: result,
+          button: {
+            no: "Ok",
+          },
+        });
+      }
+      console.log(result, "values");
     })
   );
 };

@@ -3,7 +3,6 @@ import * as z from "zod";
 
 const ProductSchema = z
   .object({
-    selected: z.boolean().optional(),
     id: z.number().optional(),
     price: z.any().optional(),
   })
@@ -11,23 +10,21 @@ const ProductSchema = z
 
 const CategorySchema = z
   .object({
-    selected: z.boolean().optional(),
     id: z.number().optional(),
     products: z.array(ProductSchema).optional(),
   })
   .optional();
 
+const PackageSchema = z.any(CategorySchema);
+
 export const validationSchema = toTypedSchema(
   z.object({
-    total: z.object({
-      money: z
-        .number({
-          required_error: "Giá tiền không hợp lệ",
-          invalid_type_error: "Giá tiền không hợp lệ",
-        })
-        .min(1, { message: "Giá tiền không hợp lệ" }),
-      type: z.string().optional(),
-    }),
+    cash: z
+      .number({
+        required_error: "Giá tiền không hợp lệ",
+        invalid_type_error: "Giá tiền không hợp lệ",
+      })
+      .optional(),
     tip: z
       .number({
         required_error: "Giá tiền không hợp lệ",
@@ -35,9 +32,9 @@ export const validationSchema = toTypedSchema(
       })
       .optional(),
     note: z.string().optional(),
-    categories: z.array(CategorySchema).optional(),
     paymentType: z.number().optional(),
     clientPhoneNumber: z.string().optional(),
     clientName: z.string().optional(),
+    packages: z.array(PackageSchema).optional(),
   })
 );

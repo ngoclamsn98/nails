@@ -9,7 +9,7 @@ import "./config/interceptors";
 import router from "./routes";
 import store from "./store";
 import "./style.css";
-
+import ModalPlugin from "@/library/Modal";
 const app = createApp(App).component("camera", Camera);
 app.use(Vue3ConfirmDialog);
 app.use(VueModernNotification);
@@ -17,5 +17,6 @@ app.use(QrReader);
 app.use(VWave);
 app.use(router);
 app.use(store);
+app.use(ModalPlugin);
 
 app.mount("#app");
