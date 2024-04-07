@@ -4,7 +4,7 @@ import Modal from "@/components/Modal";
 const ModalPlugin = {};
 
 ModalPlugin.install = (app) => {
-  app.config.globalProperties.$modal = (component) => {
+  app.config.globalProperties.$modal = ({ component }) => {
     const modalInstance = createApp({
       render() {
         return h(Modal, { component });

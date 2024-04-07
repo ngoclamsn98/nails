@@ -2,7 +2,6 @@
   <div
     id="nail-modal-custom"
     v-show="isOpen"
-    @click="handleCloseModal"
     class="fixed inset-0 z-[9199] grid place-items-center h-screen w-screen bg-black bg-opacity-60 backdrop-blur-sm transition-opacity duration-300 modal"
   >
     <div class="m-4 rounded-lg bg-white font-sans text-base font-light leading-relaxed text-blue-gray-500 antialiased shadow-2xl modal-content">
@@ -13,7 +12,10 @@
         <Close />
       </span>
       <div class="p-4 font-sans text-base antialiased font-light leading-relaxed text-blue-gray-500 z-[1000]">
-        <component :is="component"></component>
+        <component
+          :is="component"
+          @close="handleCloseModal"
+        ></component>
       </div>
     </div>
   </div>
@@ -22,7 +24,9 @@
 <script setup>
 import Close from "@/components/Icon/Close";
 import useDisclosure from "@/hooks/useDisclosure";
-import { onMounted, watch } from "vue";
+import { onMounted } from "vue";
+
+const { open, close, isOpen } = useDisclosure();
 
 const props = defineProps({
   component: {
@@ -30,8 +34,6 @@ const props = defineProps({
     required: true,
   },
 });
-
-const { open, close, isOpen } = useDisclosure();
 
 const handleCloseModal = () => {
   const modalContent = document.querySelector(".modal-content").classList;

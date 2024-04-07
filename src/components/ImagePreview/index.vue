@@ -21,7 +21,7 @@ const props = defineProps({
 
 const open = () => {
   if (app.$modal) {
-    app.$modal(h(ImageComponent, { src: props.src }));
+    app.$modal({ component: h(ImageComponent, { src: props.src }) });
   }
 };
 </script>
