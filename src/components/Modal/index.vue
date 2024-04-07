@@ -11,6 +11,10 @@
       >
         <Close />
       </span>
+      <h2
+        class="font-bold text-[22px] px-[20px]"
+        v-if="title"
+      >{{ title }}</h2>
       <div class="p-4 font-sans text-base antialiased font-light leading-relaxed text-blue-gray-500 z-[1000]">
         <component
           :is="component"
@@ -32,6 +36,10 @@ const props = defineProps({
   component: {
     type: Object,
     required: true,
+  },
+  title: {
+    type: String,
+    required: false,
   },
 });
 

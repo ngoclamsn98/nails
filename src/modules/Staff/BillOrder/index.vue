@@ -108,11 +108,13 @@ import {
   ref,
   watch,
   getCurrentInstance,
+  h,
 } from "vue";
 import Packages from "./components/Packages";
 import InputCategory from "@/components/InputCategory";
 import { numberWithCommas } from "@/utils/number";
 import { validationSchema } from "./validate";
+import RateStar from "./components/RateStar";
 
 const amountUsd = ref(null);
 const total = ref(null);
@@ -199,8 +201,13 @@ const onSubmit = (e) => {
             no: "Ok",
           },
         });
+        return;
       }
-      console.log(result, "values");
+
+      app.config.globalProperties.$modal({
+        component: h(RateStar, { values }),
+        title: "Mức độ hài lòng của bạn!",
+      });
     })
   );
 };
