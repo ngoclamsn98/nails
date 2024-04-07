@@ -14,7 +14,9 @@ export const getIOSVersion = () => {
           .replace("_", ".")
           .replace("_", "")
       ) || false;
-    return iOSVersion;
+
+    if (+iOSVersion >= 17) return false;
+    return true;
   }
-  return false;
+  return true;
 };

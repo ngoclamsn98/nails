@@ -87,7 +87,7 @@
 
 <script setup>
 import Button from "@/components/Button";
-import Camera from "@/components/CameraNormal";
+import Camera from "./components/Camera";
 import Header from "@/components/Header";
 import InputNumber from "@/components/InputNumber";
 import InputText from "@/components/InputText";
