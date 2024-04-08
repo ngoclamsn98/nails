@@ -16,14 +16,14 @@ import {
   updateQuantity,
 } from "@/utils/array";
 import { useForm } from "vee-validate";
-import { getCurrentInstance, provide, reactive } from "vue";
+import { getCurrentInstance, h, provide, reactive } from "vue";
 import { notify } from "vue-modern-notification";
 
 const instance = getCurrentInstance();
 const app = instance.appContext.app;
 
 const data = reactive({
-  products: [],
+  products: [{ id: 1, name: "hihih", price: 100000, quanlity: 1 }],
 });
 
 const { handleSubmit, values } = useForm({
