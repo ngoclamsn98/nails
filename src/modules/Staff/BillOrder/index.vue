@@ -114,7 +114,7 @@ import Packages from "./components/Packages";
 import InputCategory from "@/components/InputCategory";
 import { numberWithCommas } from "@/utils/number";
 import { validationSchema } from "./validate";
-import RateStar from "./components/RateStar";
+import RateStar from "@/components/RateStar";
 
 const amountUsd = ref(null);
 const total = ref(null);

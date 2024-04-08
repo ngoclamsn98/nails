@@ -8,11 +8,12 @@
 import ActionProduct from "@/components/ActionProduct";
 import ProductList from "@/components/ProductList";
 import SwipeProduct from "@/components/SwipeProduct";
+import RateStar from "@/components/RateStar";
 
 import {
-deleteProduct,
-handleShowDeleteBtn,
-updateQuantity,
+  deleteProduct,
+  handleShowDeleteBtn,
+  updateQuantity,
 } from "@/utils/array";
 import { useForm } from "vee-validate";
 import { getCurrentInstance, provide, reactive } from "vue";
@@ -30,7 +31,10 @@ const { handleSubmit, values } = useForm({
 });
 
 const handleSubmitForm = handleSubmit((values) => {
-  console.log(values);
+  app.config.globalProperties.$modal({
+    component: h(RateStar, { values }),
+    title: "Mức độ hài lòng của bạn!",
+  });
 });
 
 const handleUpdateQuantityProduct = () => {
