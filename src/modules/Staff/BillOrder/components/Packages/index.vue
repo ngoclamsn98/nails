@@ -10,7 +10,7 @@
       :class="['Panel', { Active: collapse.isExpanded }]"
       :aria-expanded="collapse.isExpanded ? 'true' : 'false'"
       :aria-controls="'collapse_' + index"
-      class="w-[90%] m-auto flex justify-start py-[5px]"
+      class="w-[90%] m-auto flex justify-start py-[5px] font-bold text-[17px]"
     >
       {{ collapse.name }}
     </div>
@@ -70,16 +70,13 @@
     
 <script setup>
 import CheckBox from "@/components/CheckBox";
-import { reactive, inject } from "vue";
+import { inject } from "vue";
 import { Collapse } from "vue-collapsed";
 import InputCategory from "@/components/InputCategory";
 import { numberWithCommas } from "@/utils/number";
-import { useFieldValue } from "vee-validate";
 
 const handleIndividual = inject("handleIndividual");
 const checkedArr = inject("checkedArr") || [];
-
-const classes = reactive({ input: "" });
 
 const { collapses } = defineProps({
   collapses: { type: Array, default: [] },

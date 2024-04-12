@@ -6,20 +6,16 @@
   >
     <template v-slot:content>
       <div class="flex flex-col w-[90%] m-auto gap-y-[10px] justify-center h-full">
-        <RouterLink to="/staff/bill-order">
+        <RouterLink
+          v-for="page in pages"
+          :key="page.link"
+          :to="page.link"
+        >
           <div
-            class="shadow-[rgba(13,_38,_76,_0.19)_0px_9px_20px] rounded-sm h-[200px] flex justify-center items-center text-[26px]"
+            class="shadow-custom rounded-lg h-[200px] flex justify-center items-center text-[26px] border border-gray-300"
             v-wave="{ color: 'blue' }"
           >
-            Bill Order
-          </div>
-        </RouterLink>
-        <RouterLink to="/staff/product">
-          <div
-            class="shadow-[rgba(13,_38,_76,_0.19)_0px_9px_20px] rounded-sm h-[200px] flex justify-center items-center text-[26px]"
-            v-wave="{ color: 'blue' }"
-          >
-            Buy Product
+            {{ page.label }}
           </div>
         </RouterLink>
       </div>
@@ -30,5 +26,10 @@
 
 <script setup>
 import Header from "@/components/Header";
+import { ref } from "vue";
 
+const pages = ref([
+  { label: "Bill Order", link: "/staff/bill-order" },
+  { label: "Buy Product", link: "/staff/product" },
+]);
 </script>

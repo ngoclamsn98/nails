@@ -12,20 +12,19 @@
       <div class="flex flex-col justify-end">
         <InputText
           name="username"
-          placeholder="Nhập tên đăng nhập"
+          placeholder="Please enter username"
+          class="mt-0"
         />
         <InputText
           name="password"
           type="password"
-          placeholder="Nhập mật khẩu"
+          placeholder="Please enter password"
+          class="mt-0"
         />
-        <div class="flex justify-between px-5 mt-[10px] items-center">
-          <span class="text-white">Đăng nhập</span>
-          <ButtonIcon>
-            <template v-slot:icon>
-              <ArrowNext />
-            </template>
-          </ButtonIcon>
+        <div class="w-full sm:w-auto sm:w-9/10 md:w-11/12 lg:w-5/6 xl:w-4/5 2xl:w-3/4">
+          <Button class="mb-[20px] w-full border-0">
+            <template v-slot:text>Login</template>
+          </Button>
         </div>
       </div>
     </form>
@@ -33,8 +32,7 @@
 </template>
   
 <script setup>
-import ButtonIcon from "@/components/ButtonIcon";
-import ArrowNext from "@/components/Icon/ArrowNext";
+import Button from "@/components/Button";
 import InputText from "@/components/InputText";
 import { useStore } from "vuex";
 

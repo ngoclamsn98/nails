@@ -21,7 +21,7 @@
         </div>
         <div class="flex w-full border-t border-gray-400">
           <div class="w-[90%] mx-auto">
-            <InputText
+            <InputPhoneNumber
               name="clientPhoneNumber"
               label="Phone"
               :classes="classes"
@@ -43,7 +43,7 @@
             <span class="basis-12">Total</span>
             <div class="flex flex-col text-gray-500 text-[14px]">
               <span class="ml-[10px]">
-                {{ numberWithCommas(total) }} vnđ
+                {{ numberWithCommas(total) }} VNĐ
                 <InputCategory
                   :name="`cash`"
                   class="hidden"
@@ -67,12 +67,17 @@
           </div>
         </div>
         <div class="flex w-full border-t border-gray-400">
-          <div class="w-[90%] mx-auto">
-            <SelectPaymentType
-              name="paymentType"
-              label="Thanh Toán"
-              class="mt-[20px]"
-            />
+          <div class="w-[90%] mx-auto flex mt-[18px]">
+            <span class="basis-[75px]">Payment</span>
+            <div>
+              <Radio
+                v-for="(payment,index) in paymentType.data"
+                :label="payment.label"
+                name="paymentType"
+                :checkedValue="payment.value"
+                :key="index"
+              />
+            </div>
           </div>
         </div>
         <div class="flex w-full justify-center mt-[20px]">
@@ -91,8 +96,9 @@ import Camera from "./components/Camera";
 import Header from "@/components/Header";
 import InputNumber from "@/components/InputNumber";
 import InputText from "@/components/InputText";
-import SelectPaymentType from "@/components/SelectPaymentType";
+import InputPhoneNumber from "@/components/InputPhoneNumber";
 import TextArea from "@/components/TextArea";
+import Radio from "@/components/Radio";
 import { handleConvertVndToUSD, handleGetPackage } from "@/utils/api";
 import {
   productToKey,
@@ -115,7 +121,7 @@ import InputCategory from "@/components/InputCategory";
 import { numberWithCommas } from "@/utils/number";
 import { validationSchema } from "./validate";
 import RateStar from "@/components/RateStar";
-
+import { paymentTypes } from "@/constants";
 const amountUsd = ref(null);
 const total = ref(null);
 const checkedArr = ref([]);
@@ -125,6 +131,7 @@ const app = instance.appContext.app;
 
 const classes = reactive({ label: "basis-12" });
 const data = reactive({ collapses: [], categories: {} });
+const paymentType = reactive({ data: paymentTypes });
 
 const { handleSubmit, values, setFieldValue } = useForm({
   validationSchema: validationSchema,
@@ -222,6 +229,8 @@ const handleIndividual = (selectedIndex) => {
 };
 
 onMounted(async () => {
+  setFieldValue("paymentType", 1);
+
   // Call api get packages;
   const response = await handleGetPackage();
   if (!response.length) {

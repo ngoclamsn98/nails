@@ -96,7 +96,7 @@ export const handleFormData = (values) => {
   });
 
   if (!categories.length) {
-    return "Bạn phải chọn gói dịch vụ !";
+    return "Bạn phải chọn gói dịch vụ!";
   }
 
   return categories;

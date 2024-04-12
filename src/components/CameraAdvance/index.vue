@@ -1,6 +1,6 @@
 <template>
   <div class="w-full min-h-[100px] mt-[20px]">
-    <div class="w-[90%] m-auto flex items-start gap-x-[20px] h-[62px]">
+    <div class="w-[90%] m-auto flex items-start gap-x-[20px] h-[100px]">
       <div>Image</div>
       <div class="w-[50px] h-[50px]">
         <span @click="openCamera">

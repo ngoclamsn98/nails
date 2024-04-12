@@ -43,7 +43,7 @@ export default {
     },
     extend: {
       boxShadow: {
-        custom: "0px 1px 3px 2px #d1d5db",
+        custom: "0px 0px 5px 1px #cbd5e1",
       },
     },
   },

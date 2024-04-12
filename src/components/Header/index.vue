@@ -7,8 +7,15 @@
     >
       <ArrowPrevious />
     </span>
-    <span class="flex flex-1 justify-center text-[26px]">{{ title }}</span>
-    <span class="mr-4 text-blue-500 font-bold">{{ store }}</span>
+    <slot name="headerContent" />
+    <span
+      class="flex flex-1 justify-center text-[26px]"
+      v-if="title"
+    >{{ title }}</span>
+    <span
+      class="mr-4 text-blue-500 font-bold"
+      v-if="isShowStore"
+    >{{ store }}</span>
   </div>
   <div class="h-[90%] overflow-y-auto overflow-x-hidden mt-[20px]">
     <slot name="content" />
@@ -25,6 +32,7 @@ const props = defineProps({
   isBack: { type: Boolean, required: false, default: false },
   title: { type: String, default: "" },
   redirect: { type: String, required: false },
+  isShowStore: { type: Boolean, default: true },
 });
 
 const store = ref(null);

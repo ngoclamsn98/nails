@@ -32,6 +32,7 @@ import { numberWithCommas } from "@/utils/number";
 import { useField } from "vee-validate";
 import { onMounted, ref, watch } from "vue";
 import { any } from "zod";
+import { MAX_LENGTH } from "@/constants";
 
 const props = defineProps({
   name: { type: String, required: true },
@@ -55,6 +56,10 @@ watch(numericValue, (newValue) => {
   }
   numericValue.value = newValue.toString().replace(/[^\d]/g, "");
   numericValue.value = numberWithCommas(+numericValue.value);
+
+  if (numericValue.value.length >= MAX_LENGTH) {
+    numericValue.value = numericValue.value.slice(0, MAX_LENGTH);
+  }
 
   if (numericValue.value.toString().includes(",")) {
     value.value = +numericValue.value.split(",").join("");

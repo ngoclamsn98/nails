@@ -2,7 +2,7 @@
   <img
     :src="src"
     @click="open"
-    class="w-[100px] h-[100px] bg-center object-cover mb-[5px]"
+    class="w-[100px] h-[100px] bg-center object-cover pb-[10px]"
     v-if="src"
     id="preview"
   />

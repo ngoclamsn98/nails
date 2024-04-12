@@ -1,5 +1,5 @@
 <template>
-  <div class="fixed right-2 bottom-3">
+  <div class="fixed right-6 bottom-6">
     <ButtonIcon>
       <template v-slot:icon><span
           class="text-white text-[20px]"

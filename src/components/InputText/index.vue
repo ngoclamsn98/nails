@@ -2,6 +2,7 @@
   <div class="flex flex-col gap-y-[2px] w-full mt-[18px]">
     <div class="flex gap-x-[10px] items-start">
       <span
+        v-if="label"
         class="inline-flex h-[42px] items-center"
         :class="classes.label"
       >{{ label }}</span>

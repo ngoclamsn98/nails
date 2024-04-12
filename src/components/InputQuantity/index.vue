@@ -18,6 +18,7 @@
 import { numberWithCommas } from "@/utils/number";
 import { useField } from "vee-validate";
 import { defineEmits, ref, watch } from "vue";
+import { MAX_LENGTH } from "@/constants";
 
 const props = defineProps({
   name: { type: String, required: true },
@@ -37,6 +38,11 @@ watch(numericValue, (newValue) => {
   } else {
     numericValue.value = newValue.toString().replace(/[^\d]/g, "");
     numericValue.value = numberWithCommas(+numericValue.value);
+
+    if (numericValue.value.length >= MAX_LENGTH) {
+      numericValue.value = numericValue.value.slice(0, MAX_LENGTH);
+    }
+
     value.value = numericValue.value.split(",").join("");
   }
   emit("changeQuantity");
