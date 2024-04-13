@@ -12,7 +12,7 @@
           :to="page.link"
         >
           <div
-            class="shadow-custom rounded-lg h-[200px] flex justify-center items-center text-[26px] border border-gray-300"
+            class="bg-button  text-white shadow-custom rounded-lg h-[200px] flex justify-center items-center text-[26px] border border-gray-300"
             v-wave="{ color: 'blue' }"
           >
             {{ page.label }}

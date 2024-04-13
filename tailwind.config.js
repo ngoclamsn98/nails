@@ -40,6 +40,9 @@ export default {
       "gray-800": "#1e293b",
       "gray-900": "#0f172a",
       yellow: "#fde047",
+      header: "#d7b791",
+      content: "#feedcd",
+      button: "#c4742b",
     },
     extend: {
       boxShadow: {

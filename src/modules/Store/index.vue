@@ -2,14 +2,14 @@
   <Header :isShowStore="false">
     <template v-slot:headerContent>
       <div class="w-[90%] flex mx-auto items-center justify-between">
-        <div class="font-bold text-[20px]">Staff name</div>
+        <div class="font-bold text-[20px] text-white">{{ staffName }}</div>
         <Button @click="handleLogout"><template v-slot:text>Logout</template></Button>
       </div>
     </template>
     <template v-slot:content>
       <div class="flex flex-col w-[90%] m-auto gap-y-[10px] justify-center h-full">
         <div
-          class="rounded-lg h-[70px] flex justify-center items-center text-[26px] border border-gray-300 shadow-custom"
+          class="rounded-lg h-[70px] flex justify-center items-center text-[26px] border border-gray-300 shadow-custom bg-button text-white"
           v-wave="{ color: 'blue' }"
           v-for="store in data.store"
           :key="store.value"
@@ -28,7 +28,10 @@ import { STAFF, LOGIN } from "@/routes/path";
 import storageUtils from "@/utils/storageUtils";
 import Header from "@/components/Header";
 import Button from "@/components/Button";
-import { reactive } from "vue";
+import { onMounted, reactive, ref } from "vue";
+
+const staffName = ref(null);
+
 const data = reactive({
   store: [
     { name: "Store1", value: 1 },
@@ -45,4 +48,8 @@ const handleLogout = () => {
   storageUtils.remove("token");
   router.push(LOGIN);
 };
+
+onMounted(() => {
+  staffName.value = storageUtils.get("token")?.username;
+});
 </script>

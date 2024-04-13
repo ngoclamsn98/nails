@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white h-[60px] m-auto flex justify-start top-0 items-center sticky max-w-[500px] w-full shadow-lg shadow-slate-900/20 shadow-b-2 shadow-r-[3px] -shadow-spread-2">
+  <div class="bg-header h-[60px] m-auto flex justify-start top-0 items-center sticky max-w-[500px] w-full shadow-lg shadow-slate-900/20 shadow-b-2 shadow-r-[3px] -shadow-spread-2">
     <span
       @click="handleBack"
       v-if="isBack"
@@ -9,11 +9,11 @@
     </span>
     <slot name="headerContent" />
     <span
-      class="flex flex-1 justify-center text-[26px]"
+      class="flex flex-1 justify-center text-[26px] text-white"
       v-if="title"
     >{{ title }}</span>
     <span
-      class="mr-4 text-blue-500 font-bold"
+      class="mr-4 font-bold text-white text-[20px]"
       v-if="isShowStore"
     >{{ store }}</span>
   </div>

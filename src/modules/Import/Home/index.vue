@@ -6,20 +6,16 @@
   >
     <template v-slot:content>
       <div class="flex flex-col w-[90%] m-auto gap-y-[10px] justify-center h-full">
-        <RouterLink to="/import/import-product">
+        <RouterLink
+          v-for="page in pages"
+          :key="page.link"
+          :to="page.link"
+        >
           <div
-            class="shadow-[rgba(13,_38,_76,_0.19)_0px_9px_20px] rounded-sm h-[200px] flex justify-center items-center text-[26px]"
+            class="bg-button  text-white shadow-custom rounded-lg h-[200px] flex justify-center items-center text-[26px] border border-gray-300"
             v-wave="{ color: 'blue' }"
           >
-            Import Product
-          </div>
-        </RouterLink>
-        <RouterLink to="/import/buy-product">
-          <div
-            class="shadow-[rgba(13,_38,_76,_0.19)_0px_9px_20px] rounded-sm h-[200px] flex justify-center items-center text-[26px]"
-            v-wave="{ color: 'blue' }"
-          >
-            Buy Product
+            {{ page.label }}
           </div>
         </RouterLink>
       </div>
@@ -29,4 +25,10 @@
   
 <script setup>
 import Header from "@/components/Header";
+import { ref } from "vue";
+
+const pages = ref([
+  { label: "Import Product", link: "/import/import-product" },
+  { label: "Buy Product", link: "/import/buy-product" },
+]);
 </script>

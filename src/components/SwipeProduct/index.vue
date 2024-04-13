@@ -10,7 +10,7 @@
       v-model="isOpen"
       snapPoint="300px"
     >
-      <div class="flex gap-x-[15px] mr-2 items-center">
+      <div class="flex gap-x-[15px] mr-2 items-center ml-[10px]">
         <InputText
           name="name"
           placeholder="Nhập mã sản phẩm"

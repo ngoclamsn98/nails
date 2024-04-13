@@ -2,7 +2,7 @@
   <button
     v-if="!store.state.loading.isLoading"
     v-wave="{ color: 'blue' }"
-    class="w-[50px] h-[50px] rounded-full bg-sky-600 flex justify-center items-center"
+    class="w-[50px] h-[50px] rounded-full bg-button flex justify-center items-center"
     type="submit"
   >
     <slot name="icon" />

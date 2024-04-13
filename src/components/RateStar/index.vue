@@ -12,7 +12,7 @@
     <button
       @click="submitForm"
       v-wave="{ color: 'blue' }"
-      class="flex gap-x-[5px] px-[10px] h-[45px] items-center rounded-2xl border border-gray-200 min-w-[100px] justify-center bg-purple text-white"
+      class="flex gap-x-[5px] px-[10px] h-[45px] items-center rounded-2xl border border-gray-200 min-w-[100px] justify-center bg-button text-white"
     >
       Đánh giá
     </button>
