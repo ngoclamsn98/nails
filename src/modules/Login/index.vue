@@ -17,7 +17,7 @@
           placeholder="Please enter password"
           class="!mt-0"
         />
-        <div class="w-full sm:w-auto sm:w-9/10 md:w-11/12 lg:w-5/6 xl:w-4/5 2xl:w-3/4">
+        <div class="w-full">
           <Button class="mb-[20px] w-full border-0">
             <template v-slot:text>Login</template>
           </Button>
