@@ -32,10 +32,10 @@ import Button from "@/components/Button";
 import InputText from "@/components/InputText";
 import { useStore } from "vuex";
 
+import axiosInstance from '@/config/interceptors';
 import { handleNextFocus } from "@/utils/handleNextFocus";
 import { useForm } from "vee-validate";
 import { validationSchema } from "./validate";
-
 const store = useStore();
 
 const { handleSubmit } = useForm({
@@ -46,9 +46,10 @@ const onSubmit = (e) => {
   handleNextFocus(
     e,
     handleSubmit((values) => {
-      store.commit("user/authenticate", {
-        token: values,
-      });
+      axiosInstance.post('/auth/sign-in', {username: 'master', password: 'abc123'});
+      // store.commit("user/authenticate", {
+      //   token: values,
+      // });
     })
   );
 };

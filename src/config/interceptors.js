@@ -3,7 +3,9 @@ import store from "@/store";
 import storageUtils from "@/utils/storageUtils";
 import axios from "axios";
 
-const axiosInstance = axios.create();
+const axiosInstance = axios.create({
+  baseURL: 'http://45.251.114.224:3004/api/v1'
+});
 
 axiosInstance.interceptors.request.use(
   function (config) {
@@ -16,7 +18,6 @@ axiosInstance.interceptors.request.use(
   },
   function (error) {
     store.commit("loading/setLoading", { isLoading: false });
-
     return Promise.reject(error);
   }
 );

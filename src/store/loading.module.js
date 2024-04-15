@@ -5,7 +5,7 @@ export default {
   },
   mutations: {
     setLoading(state, { isLoading }) {
-      this.isLoading = isLoading;
+      state.isLoading = isLoading;
     },
   },
 };

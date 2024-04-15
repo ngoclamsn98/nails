@@ -8,7 +8,9 @@
     <slot name="text" />
     <slot name="endButton" />
   </button>
-  <Loading v-else />
+  <div class="w-full justify-center flex" v-else>
+    <div class="w-[45px]"><Loading /></div>
+  </div>
 </template>
 
 <script setup>
