@@ -59,7 +59,7 @@
         </div> -->
         <div class="flex w-full border-t border-gray-400">
           <div class="w-[90%] mx-auto flex items-center py-[10px]">
-            <span :classes="classes">Total</span>
+            <span :class="classes.label">Total</span>
             <div class="flex flex-col text-gray-500 text-[14px]">
               <span class="ml-[10px]">
                 {{ numberWithCommas(total) }} VNĐ
