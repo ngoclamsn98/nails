@@ -48,7 +48,7 @@
             />
           </div>
         </div>
-        <div class="flex w-full border-t border-gray-400">
+        <!-- <div class="flex w-full border-t border-gray-400">
           <div class="w-[90%] mx-auto">
             <InputNumber
               name="saleDiv"
@@ -56,7 +56,7 @@
               :classes="classes"
             />
           </div>
-        </div>
+        </div> -->
         <div class="flex w-full border-t border-gray-400">
           <div class="w-[90%] mx-auto flex items-center py-[10px]">
             <span :classes="classes">Total</span>
