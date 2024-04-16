@@ -36,5 +36,7 @@ export const validationSchema = toTypedSchema(
     clientPhoneNumber: z.string().optional(),
     clientName: z.string().optional(),
     packages: z.array(PackageSchema).optional(),
+    saleDiv: z.number().optional(),
+    discount: z.number().optional(),
   })
 );

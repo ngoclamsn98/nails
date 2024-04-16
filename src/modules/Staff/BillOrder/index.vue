@@ -31,6 +31,16 @@
         <div class="flex w-full border-t border-gray-400">
           <div class="w-[90%] mx-auto">
             <InputNumber
+              name="discount"
+              label="Discount"
+              :classes="classes"
+              :isMoney="true"
+            />
+          </div>
+        </div>
+        <div class="flex w-full border-t border-gray-400">
+          <div class="w-[90%] mx-auto">
+            <InputNumber
               name="tip"
               label="Tip"
               :classes="classes"
@@ -39,8 +49,17 @@
           </div>
         </div>
         <div class="flex w-full border-t border-gray-400">
+          <div class="w-[90%] mx-auto">
+            <InputNumber
+              name="saleDiv"
+              label="Total Person"
+              :classes="classes"
+            />
+          </div>
+        </div>
+        <div class="flex w-full border-t border-gray-400">
           <div class="w-[90%] mx-auto flex items-center py-[10px]">
-            <span class="basis-12">Total</span>
+            <span :classes="classes">Total</span>
             <div class="flex flex-col text-gray-500 text-[14px]">
               <span class="ml-[10px]">
                 {{ numberWithCommas(total) }} VNĐ
@@ -129,7 +148,7 @@ const checkedArr = ref([]);
 const instance = getCurrentInstance();
 const app = instance.appContext.app;
 
-const classes = reactive({ label: "basis-12" });
+const classes = reactive({ label: "basis-16" });
 const data = reactive({ collapses: [], categories: {} });
 const paymentType = reactive({ data: paymentTypes });
 
@@ -169,7 +188,11 @@ const handleTotalAmount = (values) => {
     return (init += +value.price);
   }, 0);
 
-  return amountVnd + (values.tip || 0);
+  const totalPerson = values.saleDiv || 1;
+  const discount = values.discount || 0;
+  const tip = values.tip || 0;
+
+  return amountVnd * totalPerson + tip - discount;
 };
 
 let timeout;
