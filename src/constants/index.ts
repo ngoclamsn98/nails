@@ -23,3 +23,8 @@ export const STORAGE_KEY = {
 };
 
 export const LOADING_ROUTES_URL = ["/auth/sign-in"];
+
+export const TYPE_PAGE = {
+  SALES_PRODUCT: "salesProduct",
+  IMPORT_PRODUCT: "importProduct",
+};

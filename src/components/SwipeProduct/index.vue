@@ -12,7 +12,7 @@
     >
       <div class="flex gap-x-[15px] mr-2 items-center ml-[10px]">
         <InputText
-          name="name"
+          name="barcode"
           placeholder="Nhập mã sản phẩm"
         />
         <Button
@@ -45,6 +45,9 @@ import QrCode from "@/components/QrCode";
 import useDisclosure from "@/hooks/useDisclosure";
 import { SwipeModal } from "@takuma-ru/vue-swipe-modal";
 import { inject, ref, getCurrentInstance } from "vue";
+import { handlerCallApi } from "@/config/interceptors";
+import { useForm } from "vee-validate";
+
 const instance = getCurrentInstance();
 const app = instance.appContext.app;
 const { open: openQr, close, isOpen: isOpenQr } = useDisclosure();
@@ -52,6 +55,10 @@ const handleAddProduct = inject("handleAddProduct");
 
 const isOpen = ref(false);
 const qrCode = ref();
+
+const { values } = useForm({
+  // validationSchema: validationSchema,
+});
 
 const getQrData = (data) => {
   handleAddProduct(data);
@@ -63,20 +70,16 @@ const handleOpenQr = () => {
   openQr();
 };
 
-const handleSearchProduct = () => {
+const handleSearchProduct = async () => {
   isOpen.value = false;
+  close();
+  const result = await handlerCallApi({
+    method: "GET",
+    url: "/product",
+    params: { barcode: values.barcode },
+  });
 
-  // app.$confirm({
-  //   title: "Thêm Bill thành công",
-  //   button: {
-  //     yes: "Ok",
-  //   },
-  //   callback: (confirm) => {
-  //     // store.commit("user/authenticate", {
-  //     //   token: values,
-  //     // });
-  //   },
-  // });
+  handleAddProduct(result);
 };
 </script>
 

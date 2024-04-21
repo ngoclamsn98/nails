@@ -1,7 +1,10 @@
 <template>
   <form v-if="data.products.length">
     <div class="shadow-custom rounded w-[95%] m-auto mt-[5px] overflow-y-scroll max-h-[500px]">
-      <div class="flex border-b border-gray-200 py-[10px] text-[14px] items-center gap-x-2 sticky top-0 bg-white">
+      <div
+        class="flex border-b border-gray-200 py-[10px] text-[14px] items-center gap-x-2 sticky top-0 bg-white"
+        v-if="productType"
+      >
         <span class="flex break-words w-[40%] pl-3">Tổng {{ data.products.length }} Sản phẩm</span>
         <span class="flex break-words w-[20%]">Total</span>
         <span class="flex break-words w-[30%]">{{numberWithCommas(totalPrice(data.products)) }} VNĐ</span>
@@ -20,7 +23,10 @@
             />
             {{ item.name }}
           </span>
-          <span class="flex break-words w-[30%]">{{ numberWithCommas(item.price * item.quantity) }} VNĐ</span>
+          <span
+            class="flex break-words w-[30%]"
+            v-if="productType"
+          >{{ numberWithCommas(item.price * item.quantity) }} VNĐ</span>
           <span class="flex break-words w-[20%]">
             <InputQuantity
               :name="`products.${index}.quantity`"
@@ -39,7 +45,10 @@ import InputQuantity from "@/components/InputQuantity";
 import { numberWithCommas } from "@/utils/number";
 import { totalPrice } from "@/utils/array";
 import { inject } from "vue";
+import { TYPE_PAGE } from "@/constants";
 
 const data = inject("data");
+const productType = inject("productType") === TYPE_PAGE.SALES_PRODUCT;
+
 const handleUpdateQuantityProduct = inject("handleUpdateQuantityProduct");
 </script>
