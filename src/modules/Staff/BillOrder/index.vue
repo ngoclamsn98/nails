@@ -127,13 +127,13 @@ import {
 import { handleNextFocus } from "@/utils/handleNextFocus";
 import { useForm } from "vee-validate";
 import {
-  onMounted,
   provide,
   reactive,
   ref,
   watch,
   getCurrentInstance,
   h,
+  onBeforeMount,
 } from "vue";
 import Packages from "./components/Packages";
 import InputCategory from "@/components/InputCategory";
@@ -141,6 +141,8 @@ import { numberWithCommas } from "@/utils/number";
 import { validationSchema } from "./validate";
 import RateStar from "@/components/RateStar";
 import { paymentTypes } from "@/constants";
+import { handlerCallApi } from "@/config/interceptors";
+
 const amountUsd = ref(null);
 const total = ref(null);
 const checkedArr = ref([]);
@@ -251,15 +253,28 @@ const handleIndividual = (selectedIndex) => {
   });
 };
 
-onMounted(async () => {
+const handleGetPackages = async () => {
+  const result = await handlerCallApi({
+    url: "packages",
+    method: "GET",
+    params: {
+      currentPage: 1,
+      pageSize: 1000,
+    },
+  });
+
+  return result;
+};
+
+onBeforeMount(async () => {
   setFieldValue("paymentType", 1);
 
   // Call api get packages;
-  const response = await handleGetPackage();
-  if (!response.length) {
+  const response = await handleGetPackages();
+  if (!response.data.length) {
     return;
   }
-  data.collapses = response.map(({ name, id, categories }) => ({
+  data.collapses = response.data.map(({ name, id, categories }) => ({
     name,
     id,
     categories,

@@ -26,7 +26,7 @@
         class="flex flex-col"
       >
         <CheckBox
-          :label="category.name"
+          :label="category.nameApp"
           :name="`packages.${index}.categories.${categoryIndex}.id`"
           :checkedValue="category.id"
           :disabled="true"
@@ -38,7 +38,7 @@
             class="mb-[10px]"
           >
             <CheckBox
-              :label="product.name"
+              :label="product.nameApp"
               :name="`packages.${index}.categories.${categoryIndex}.products.${position}.id`"
               :checkedValue="product.id"
             />

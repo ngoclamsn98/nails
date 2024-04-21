@@ -24,32 +24,84 @@
 </template>
 <script setup>
 import router from "@/routes";
-import { STAFF, LOGIN } from "@/routes/path";
+import { STAFF, LOGIN, MANAGER_STORE } from "@/routes/path";
 import storageUtils from "@/utils/storageUtils";
 import Header from "@/components/Header";
 import Button from "@/components/Button";
-import { onMounted, reactive, ref } from "vue";
+import { onBeforeMount, reactive, ref } from "vue";
+import { ROLES } from "@/constants/role";
+import { STORAGE_KEY } from "@/constants";
+import { handlerCallApi } from "@/config/interceptors";
+import { useStore } from "vuex";
 
+const store = useStore();
 const staffName = ref(null);
 
 const data = reactive({
-  store: [
-    { name: "Store1", value: 1 },
-    { name: "Store2", value: 2 },
-  ],
+  store: [],
 });
 const handleChooseStore = (store) => {
-  router.push(STAFF.HOME);
-  storageUtils.set({ key: "store", data: store });
+  const role = storageUtils.get(STORAGE_KEY.TOKEN_DATA)?.role;
+  storageUtils.set({ key: STORAGE_KEY.STORE_DETAIL, data: store });
+
+  switch (role) {
+    case ROLES.STAFF:
+      router.push(STAFF.HOME);
+      break;
+    case ROLES.STORE:
+      router.push(STAFF.HOME);
+      break;
+    default:
+      break;
+  }
 };
 
 const handleLogout = () => {
-  storageUtils.remove("store");
-  storageUtils.remove("token");
+  storageUtils.remove(STORAGE_KEY.STORE_DETAIL);
+  storageUtils.remove(STORAGE_KEY.TOKEN_DATA);
   router.push(LOGIN);
 };
 
-onMounted(() => {
-  staffName.value = storageUtils.get("token")?.username;
+const handleGetMe = async () => {
+  const userStore = storageUtils.get(STORAGE_KEY.USER_DETAIL);
+
+  if (userStore) {
+    staffName.value = storageUtils.get(STORAGE_KEY.USER_DETAIL)?.staffName;
+  }
+
+  const user = await handlerCallApi({
+    method: "GET",
+    url: "/user/me",
+  });
+  const usersData = {
+    staffName: `${user.firstName} ${user.lastName}`,
+    role: user.role,
+    storeId: user.store.id,
+    fcId: user.store.franchise.id,
+  };
+  store.commit("user/setUser", {
+    data: usersData,
+  });
+  staffName.value = usersData.staffName;
+};
+
+const handleGetStore = async () => {
+  const storeList = storageUtils.get(STORAGE_KEY.STORE_LIST);
+  if (storeList) {
+    data.store = storageUtils.get(STORAGE_KEY.STORE_LIST) || [];
+  }
+  const userStore = storageUtils.get(STORAGE_KEY.USER_DETAIL);
+  const stores = await handlerCallApi({
+    method: "GET",
+    url: `/store/list`,
+    params: { id: userStore.fcId },
+  });
+  data.store = stores;
+  storageUtils.set({ key: STORAGE_KEY.STORE_LIST, data: stores });
+};
+
+onBeforeMount(async () => {
+  await handleGetMe();
+  await handleGetStore();
 });
 </script>

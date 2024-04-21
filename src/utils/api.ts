@@ -1,4 +1,5 @@
 import axios from "axios";
+import axiosInstance from "../config/interceptors";
 import { CONVERT_VND_TO_USD } from "../constants/api";
 
 export const handleConvertVndToUSD = async (amount) => {

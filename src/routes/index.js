@@ -2,7 +2,8 @@ import store from "@/store/index";
 import storageUtils from "@/utils/storageUtils";
 import NProgress from "nprogress";
 import { createRouter, createWebHistory } from "vue-router";
-import { IMPORT, LOGIN, STAFF, STORE } from "./path";
+import { MANAGER_STORE, LOGIN, STAFF, STORE } from "./path";
+import { STORAGE_KEY } from "@/constants";
 const router = createRouter({
   history: createWebHistory(),
   routes: [
@@ -37,19 +38,19 @@ const router = createRouter({
       meta: { requiresAuth: true },
     },
     {
-      path: IMPORT.HOME,
+      path: MANAGER_STORE.HOME,
       name: "Import",
       component: () => import("../pages/Import/Home"),
       meta: { requiresAuth: true },
     },
     {
-      path: IMPORT.IMPORT_PRODUCT,
+      path: MANAGER_STORE.IMPORT_PRODUCT,
       name: "ImportProduct",
       component: () => import("../pages/Import/Import"),
       meta: { requiresAuth: true },
     },
     {
-      path: IMPORT.PRODUCT,
+      path: MANAGER_STORE.PRODUCT,
       name: "BuyProduct",
       component: () => import("../pages/Import/Product"),
       meta: { requiresAuth: true },
@@ -66,7 +67,7 @@ const router = createRouter({
 router.beforeEach(async (to, from, next) => {
   NProgress.start();
   NProgress.set(1);
-  const token = !!Object.keys(storageUtils.get("token")).length;
+  const token = storageUtils.get(STORAGE_KEY.TOKEN_DATA)?.accessToken;
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     if (token) {
       handleInfoUser(to, from, next);

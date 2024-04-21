@@ -1,7 +1,7 @@
 class StorageUtils {
   get(key: string) {
     if (typeof window !== "undefined") {
-      return JSON.parse(window.localStorage.getItem(key) || "{}");
+      return JSON.parse(window.localStorage.getItem(key) || "null");
     }
     return null;
   }

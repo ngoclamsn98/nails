@@ -9,10 +9,10 @@ const STAFF: StaffPath = {
   PRODUCT: "/staff/product",
 };
 
-const IMPORT: StaffPath = {
+const MANAGER_STORE: StaffPath = {
   HOME: "/import",
   IMPORT_PRODUCT: "/import/import-product",
   PRODUCT: "/import/buy-product",
 };
 
-export { LOGIN, STAFF, STORE, IMPORT };
+export { LOGIN, STAFF, STORE, MANAGER_STORE };

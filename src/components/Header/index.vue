@@ -27,7 +27,7 @@ import ArrowPrevious from "@/components/Icon/ArrowPrevious";
 import router from "@/routes";
 import storageUtils from "@/utils/storageUtils";
 import { onMounted, ref } from "vue";
-
+import { STORAGE_KEY } from "@/constants";
 const props = defineProps({
   isBack: { type: Boolean, required: false, default: false },
   title: { type: String, default: "" },
@@ -38,7 +38,7 @@ const props = defineProps({
 const store = ref(null);
 
 onMounted(() => {
-  store.value = storageUtils.get("store")?.name;
+  store.value = storageUtils.get(STORAGE_KEY.STORE_DETAIL)?.name;
 });
 
 const handleBack = () => {
