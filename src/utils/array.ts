@@ -17,7 +17,7 @@ export const updateQuantity = (arrQty, arrUpdate) => {
 export const totalPrice = (arr) => {
   if (!arr.length) return 0;
   return arr.reduce((init, product) => {
-    return (init += product.quantity * product.price);
+    return (init += (product.quantity || 1) * product.salesPrice);
   }, 0);
 };
 
@@ -26,15 +26,17 @@ export const handleShowDeleteBtn = (arr) => {
   return arr.some((product) => product.selected);
 };
 
-export const deleteProduct = (arrSelected, arrProduct) => {
-  const ids = arrSelected
-    .map((product) => {
-      if (product.selected) {
-        return product.id;
-      }
-      return null;
-    })
-    .filter((product) => product);
+export const getTotalSelected = (arr) => {
+  if (!arr?.length) return 0;
+  return arr.reduce((init, product) => {
+    if (product.selected) {
+      init += 1;
+    }
+    return init;
+  }, 0);
+};
+
+export const deleteProduct = (ids, arrProduct) => {
   return arrProduct.filter((product) => !ids.includes(product.id));
 };
 

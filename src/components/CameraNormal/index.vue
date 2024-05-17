@@ -30,13 +30,15 @@ import Camera from "@/components/Icon/Camera";
 import ImagePreview from "@/components/ImagePreview";
 import { handleResizeFile } from "@/utils/resizeImage";
 
-import { reactive, ref } from "vue";
+import { reactive, ref, inject } from "vue";
 
 const data = reactive({
   capturedImageSrc: undefined,
 });
 
 const fileInputRef = ref(null);
+
+const handleSetImage = inject("handleSetImage");
 
 const onFileInputChange = () => {
   const fileInput = fileInputRef.value;
@@ -52,6 +54,7 @@ const onFileInputChange = () => {
   }
   handleResizeFile(file).then((result) => {
     data.capturedImageSrc = result;
+    handleSetImage(result);
   });
 };
 </script>

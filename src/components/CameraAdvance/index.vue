@@ -40,11 +40,11 @@
 </template>
 
 <script>
-import { defineComponent, ref } from "vue";
-import Camera from "simple-vue-camera";
-import useDisclosure from "@/hooks/useDisclosure";
 import CameraIcon from "@/components/Icon/Camera";
 import Close from "@/components/Icon/Close";
+import useDisclosure from "@/hooks/useDisclosure";
+import Camera from "simple-vue-camera";
+import { defineComponent, inject, ref } from "vue";
 
 import ImagePreview from "@/components/ImagePreview";
 
@@ -60,6 +60,7 @@ export default defineComponent({
     const cameraIsOn = ref(false);
     const imageSrc = ref(null);
     const { open, close, isOpen } = useDisclosure();
+    const handleSetImage = inject("handleSetImage");
 
     const cameraToggle = () => {
       cameraIsOn.value ? camera.value.stop() : camera.value.start();
@@ -82,6 +83,10 @@ export default defineComponent({
         "image/jpg",
         0.3
       );
+
+      const imageFile = new File([imageBlob], `${new Date().getTime()}.png`, { type: 'image/png' });
+
+      handleSetImage(imageFile);
 
       const url = URL.createObjectURL(imageBlob);
       imageSrc.value = url;

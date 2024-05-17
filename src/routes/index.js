@@ -1,9 +1,11 @@
+import { STORAGE_KEY } from "@/constants";
+import { PERMISSION } from "@/constants/role";
 import store from "@/store/index";
 import storageUtils from "@/utils/storageUtils";
 import NProgress from "nprogress";
 import { createRouter, createWebHistory } from "vue-router";
-import { MANAGER_STORE, LOGIN, STAFF, STORE } from "./path";
-import { STORAGE_KEY } from "@/constants";
+import { BUY_PRODUCT, HOME, LOGIN, MANAGER_STORE, STAFF, STORE } from "./path";
+
 const router = createRouter({
   history: createWebHistory(),
   routes: [
@@ -17,85 +19,89 @@ const router = createRouter({
       path: STORE,
       name: "Store",
       component: () => import("../pages/Store"),
-      meta: { requiresAuth: true },
+      meta: {
+        requiresAuth: true,
+        permissions: [
+          PERMISSION.NAILER,
+          PERMISSION.MANAGER,
+          PERMISSION.STOCKER,
+        ],
+      },
     },
     {
-      path: STAFF.HOME,
+      path: HOME,
       name: "Home",
-      component: () => import("../pages/Staff/Home"),
-      meta: { requiresAuth: true },
+      component: () => import("../pages/Home"),
+      meta: { requiresAuth: true, permissions: [PERMISSION.NAILER, PERMISSION.MANAGER, PERMISSION.STOCKER] },
     },
     {
       path: STAFF.BILL_ORDER,
       name: "BillOrder",
-      component: () => import("../pages/Staff/BillOrder"),
-      meta: { requiresAuth: true },
-    },
-    {
-      path: STAFF.PRODUCT,
-      name: "Product",
-      component: () => import("../pages/Staff/Product"),
-      meta: { requiresAuth: true },
-    },
-    {
-      path: MANAGER_STORE.HOME,
-      name: "Import",
-      component: () => import("../pages/Import/Home"),
-      meta: { requiresAuth: true },
+      component: () => import("../pages/BillOrder"),
+      meta: {
+        requiresAuth: true,
+        permissions: [PERMISSION.NAILER, PERMISSION.MANAGER],
+      },
     },
     {
       path: MANAGER_STORE.IMPORT_PRODUCT,
       name: "ImportProduct",
-      component: () => import("../pages/Import/Import"),
-      meta: { requiresAuth: true },
+      component: () => import("../pages/Import"),
+      meta: {
+        requiresAuth: true,
+        permissions: [PERMISSION.MANAGER, PERMISSION.STOCKER],
+      },
     },
     {
-      path: MANAGER_STORE.PRODUCT,
+      path: BUY_PRODUCT,
       name: "BuyProduct",
-      component: () => import("../pages/Import/Product"),
-      meta: { requiresAuth: true },
+      component: () => import("../pages/Buy-Product"),
+      meta: {
+        requiresAuth: true,
+        permissions: [PERMISSION.MANAGER, PERMISSION.STOCKER, PERMISSION.NAILER],
+      },
     },
     {
       path: "/:catchAll(.*)",
       name: "All",
       component: () => import("../pages/Store"),
-      meta: { requiresAuth: true },
+      meta: {
+        requiresAuth: true,
+        permissions: [PERMISSION.MANAGER, PERMISSION.STOCKER],
+      },
     },
   ],
 });
 
-router.beforeEach(async (to, from, next) => {
+router.beforeEach(async (to, _, next) => {
   NProgress.start();
   NProgress.set(1);
   const token = storageUtils.get(STORAGE_KEY.TOKEN_DATA)?.accessToken;
   if (to.matched.some((record) => record.meta.requiresAuth)) {
-    if (token) {
-      handleInfoUser(to, from, next);
-      return;
-    }
+    await checkPermissionAndRedirect(to, token, next);
     next(LOGIN);
   } else {
-    if (token) {
-      handleInfoUser(to, from, next);
-      next(STORE);
-    } else {
-      next();
-    }
+    await checkPermissionAndRedirect(to, token, next);
+    next();
   }
 });
+
+const checkPermissionAndRedirect = async (to, token, next) => {
+  if (token) {
+    const { isAuth, userData } = await store.dispatch("user/checkLogin");
+    if (!isAuth) return next(LOGIN);
+
+    if (to?.meta?.permissions?.includes(userData.permission)) {
+      next();
+    } else {
+      next(STORE);
+    }
+    next(STORE);
+  }
+};
 
 router.afterEach(() => {
   NProgress.done();
 });
-
-const handleInfoUser = async (to, from, next) => {
-  try {
-    await store.dispatch("user/checkLogin");
-    next();
-  } catch (error) {
-    console.log(error);
-    next();
-  }
-};
 
 export default router;

@@ -1,6 +1,6 @@
 import axios from "axios";
-import axiosInstance from "../config/interceptors";
 import { CONVERT_VND_TO_USD } from "../constants/api";
+import { PRICE_USD } from "../constants/index";
 
 export const handleConvertVndToUSD = async (amount) => {
   if (!amount) return;
@@ -13,7 +13,7 @@ export const handleConvertVndToUSD = async (amount) => {
 
   const rate = data.rates.VND;
   const result = amount / rate;
-  return result.toFixed(2);
+  return (result * PRICE_USD).toFixed(2);
 };
 
 export const handleGetPackage = () => {

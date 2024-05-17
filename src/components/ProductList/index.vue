@@ -1,54 +1,59 @@
 <template>
-  <form v-if="data.products.length">
-    <div class="shadow-custom rounded w-[95%] m-auto mt-[5px] overflow-y-scroll max-h-[500px]">
+  <div
+    class="shadow-custom rounded w-[90%] mx-auto mt-[5px] overflow-y-scroll max-h-[500px]"
+    v-if="data.products.length"
+  >
+    <div class="flex flex-col p-3">
       <div
-        class="flex border-b border-gray-200 py-[10px] text-[14px] items-center gap-x-2 sticky top-0 bg-white"
-        v-if="productType"
+        class="flex border-b border-gray-200 py-[10px] text-[14px] items-center gap-x-2"
+        v-for="(item,index) in data.products"
+        :key="index"
       >
-        <span class="flex break-words w-[40%] pl-3">Tổng {{ data.products.length }} Sản phẩm</span>
-        <span class="flex break-words w-[20%]">Total</span>
-        <span class="flex break-words w-[30%]">{{numberWithCommas(totalPrice(data.products)) }} VNĐ</span>
-      </div>
-      <div class="flex flex-col p-3">
-        <div
-          class="flex border-b border-gray-200 py-[10px] text-[14px] items-center gap-x-2"
-          v-for="(item,index) in data.products"
-          :key="index"
-        >
-          <span class="flex break-words w-[40%]">
-            <CheckBox
-              class="!w-[20px]"
-              :name="`products.${index}.selected`"
-              :sub="{name: `products.${index}.id`, value:item.id }"
-            />
-            {{ item.name }}
-          </span>
+        <span class="flex break-words w-[40%] items-center gap-x-[10px]">
           <span
-            class="flex break-words w-[30%]"
-            v-if="productType"
-          >{{ numberWithCommas(item.price * item.quantity) }} VNĐ</span>
-          <span class="flex break-words w-[20%]">
-            <InputQuantity
-              :name="`products.${index}.quantity`"
-              @changeQuantity="handleUpdateQuantityProduct"
-            />
+            class="w-[24px] h-[24px]"
+            @click="handleDeleteProduct(item.id)"
+          >
+            <Delete />
           </span>
-        </div>
+          <CheckBox
+            class="!w-[30px] mt-[3px] hidden"
+            :name="`products.${index}.selected`"
+            :checkedValue="item.id"
+          />
+          <span class="flex items-start flex-1">{{ item.nameApp }}</span>
+        </span>
+        <span
+          class="flex break-words w-[30%]"
+          v-if="productType"
+        >{{ numberWithCommas(item.salesPrice * item.quantity) }} VNĐ</span>
+        <span class="flex break-words flex-1 justify-end">
+          <InputQuantity
+            :name="`products.${index}.quantity`"
+            @changeQuantity="handleUpdateQuantityProduct(item.id)"
+          />
+          <InputHidden
+            :name="`products.${index}.id`"
+            :defaultValue="item.id"
+          />
+        </span>
       </div>
     </div>
-  </form>
+  </div>
 </template>
 
 <script setup>
 import CheckBox from "@/components/CheckBox";
+import Delete from "@/components/Icon/Delete";
+import InputHidden from "@/components/InputHidden";
 import InputQuantity from "@/components/InputQuantity";
-import { numberWithCommas } from "@/utils/number";
-import { totalPrice } from "@/utils/array";
-import { inject } from "vue";
 import { TYPE_PAGE } from "@/constants";
+import { numberWithCommas } from "@/utils/number";
+import { inject } from "vue";
 
 const data = inject("data");
-const productType = inject("productType") === TYPE_PAGE.SALES_PRODUCT;
 
+const productType = inject("typePage") === TYPE_PAGE.SALES_PRODUCT;
 const handleUpdateQuantityProduct = inject("handleUpdateQuantityProduct");
+const handleDeleteProduct = inject("handleDeleteProduct");
 </script>

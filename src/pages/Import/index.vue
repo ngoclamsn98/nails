@@ -3,5 +3,5 @@
 </template>
 
 <script setup>
-import Import from "@/modules/Import/Import";
+import Import from "@/modules/Import";
 </script>

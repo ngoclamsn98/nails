@@ -50,3 +50,21 @@ export const handleResizeFile = (file: File) => {
     reader.readAsDataURL(file);
   });
 };
+
+
+export const convertBase64ToFileBinary = (base64String: string): File | null => {
+
+  if (!base64String) return null;
+
+  const arr: string[] = base64String.split(',');
+  const mime: string = (arr[0].match(/:(.*?);/) || [])[1] || 'application/octet-stream';
+  const bstr: string = atob(arr[arr.length - 1]);
+  let n: number = bstr.length;
+  let u8arr: Uint8Array = new Uint8Array(n);
+  while(n--){
+    u8arr[n] = bstr.charCodeAt(n);
+  }
+
+  const fileName: string = `${new Date().getTime()}.png`;
+  return new File([u8arr], fileName, {type: mime});
+}

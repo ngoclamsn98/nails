@@ -1,5 +1,5 @@
-import { createApp, h } from "vue";
 import Modal from "@/components/Modal";
+import { createApp, h } from "vue";
 
 const ModalPlugin = {};
 

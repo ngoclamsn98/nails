@@ -19,6 +19,7 @@
 <script setup>
 import QrIcon from "@/components/Icon/QrIcon";
 import CloseIcon from "@/components/Icon/Close";
+import { defineEmits } from "vue";
 
 import { QrStream } from "vue3-qr-reader";
 
@@ -29,15 +30,7 @@ defineProps({
 const emit = defineEmits(["qrData", "closeQr"]);
 
 const onDecode = (data) => {
-  const obj = JSON.parse(data) || {};
-
-  if (
-    !data ||
-    typeof obj !== "object" ||
-    !Object.keys(obj).some((key) => ["id", "price"].includes(key))
-  )
-    return;
-  emit("qrData", obj);
+  emit("qrData", data);
 };
 
 const closeQr = () => {

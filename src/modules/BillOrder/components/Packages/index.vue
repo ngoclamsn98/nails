@@ -2,7 +2,7 @@
   <div
     v-for="(collapse, index) in collapses"
     :key="collapse.title"
-    class="border-b w-full border-gray-400"
+    class="border-b w-full border-gray-200"
   >
     <div
       :id="'toggle_' + index"
@@ -31,6 +31,10 @@
           :checkedValue="category.id"
           :disabled="true"
         />
+        <InputHidden
+          :name="`packages.${index}.id`"
+          :defaultValue="collapse.id"
+        />
         <ul class="ml-[30px] flex flex-col mt-[5px]">
           <li
             v-for="(product, position) in category.products"
@@ -44,12 +48,12 @@
             />
             <div
               class="flex justify-end text-[13px]"
-              v-if="product.price"
-            >{{numberWithCommas(product.price) }} vnđ
+              v-if="product.salesPrice"
+            >{{numberWithCommas(product.salesPrice) }} vnđ
               <InputCategory
                 :name="`packages.${index}.categories.${categoryIndex}.products.${position}.price`"
                 class="hidden"
-                :defaultValue="product.price"
+                :defaultValue="product.salesPrice"
               />
             </div>
             <div
@@ -70,10 +74,11 @@
     
 <script setup>
 import CheckBox from "@/components/CheckBox";
+import InputCategory from "@/components/InputCategory";
+import InputHidden from "@/components/InputHidden";
+import { numberWithCommas } from "@/utils/number";
 import { inject } from "vue";
 import { Collapse } from "vue-collapsed";
-import InputCategory from "@/components/InputCategory";
-import { numberWithCommas } from "@/utils/number";
 
 const handleIndividual = inject("handleIndividual");
 const checkedArr = inject("checkedArr") || [];

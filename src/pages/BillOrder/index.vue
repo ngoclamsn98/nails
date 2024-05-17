@@ -3,5 +3,5 @@
 </template>
 
 <script setup>
-import BillOrder from "@/modules/Staff/BillOrder";
+import BillOrder from "@/modules/BillOrder";
 </script>

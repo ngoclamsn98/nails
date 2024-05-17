@@ -13,7 +13,7 @@
       v-if="title"
     >{{ title }}</span>
     <span
-      class="mr-4 font-bold text-white text-[20px]"
+      class="mr-4 font-bold text-white text-[15px] max-w-[200px] break-all"
       v-if="isShowStore"
     >{{ store }}</span>
   </div>

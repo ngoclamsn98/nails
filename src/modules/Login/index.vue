@@ -29,6 +29,7 @@
   
 <script setup>
 import Button from "@/components/Button";
+
 import InputText from "@/components/InputText";
 import { useStore } from "vuex";
 import { handlerCallApi } from "@/config/interceptors";
@@ -53,7 +54,7 @@ const onSubmit = (e) => {
         body: values,
       });
 
-      if (result.role === ROLES.MASTER) {
+      if ([ROLES.MASTER, ROLES.FC, ROLES.STORE].includes(result.role)) {
         store.commit("error/setError", {
           message: "Bạn không có quyền truy cập vào store!",
           type: "USER_MASTER",
