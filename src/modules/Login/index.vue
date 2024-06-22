@@ -6,9 +6,7 @@
     >
       <h2 class="text-[32px] mb-[20px]">LITI <br />Nail & Hair</h2>
       <div class="flex flex-col justify-end">
-        <input type="text">
-        <input type="text">
-        <!-- <InputText
+        <InputText
           name="username"
           placeholder="Please enter username"
           class="mt-0"
@@ -23,7 +21,7 @@
           <Button class="mb-[20px] w-full border-0">
             <template v-slot:text>Login</template>
           </Button>
-        </div> -->
+        </div>
       </div>
     </form>
   </div>
