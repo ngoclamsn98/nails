@@ -26,5 +26,9 @@ export const handleNextFocus = (e, cb) => {
     inputArray[index + 1].focus();
     return;
   }
+
+  if (!inputArray[index + 1]) {
+    inputArray[index].blur();
+  }
   cb(e);
 };

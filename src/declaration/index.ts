@@ -6,12 +6,14 @@ export enum SALE_TYPE {
 }
 
 export class BillOrderReqDto {
+    storeId: string;
     discount: number;
     clientName: string;
     clientPhoneNumber: string;
     saleType: SALE_TYPE;
     payType: PayType;
     tip: number;
+    total: number;
     file: File | null;
     products: string;
     rateStar: number | null;

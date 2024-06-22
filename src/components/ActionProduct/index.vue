@@ -1,14 +1,16 @@
 <template>
-  <div class="flex gap-x-[10px] w-[90%] fixed bottom-[20px] h-[60px] items-center justify-center bg-content ml-[5%]">
-    <Button
-      class="h-[40px]"
-      :class="width"
-      @click="handleSubmitForm"
-      v-if="data.products.length"
-    >
-      <template v-slot:text>Submit</template>
-    </Button>
-    <SwipeProduct :width="width" />
+  <div class="flex gap-x-[10px] w-full fixed bottom-0 h-[60px] py-[20px] items-center justify-center bg-content">
+    <div class="w-[90%] flex gap-x-[10px]">
+      <Button
+        class="h-[40px]"
+        :class="width"
+        @click="handleSubmitForm"
+        v-if="data.products.length"
+      >
+        <template v-slot:text>Submit</template>
+      </Button>
+      <SwipeProduct :width="width" />
+    </div>
   </div>
 </template>
 

@@ -66,6 +66,8 @@ import { useStore } from "vuex";
 import Camera from "./components/Camera";
 import Packages from "./components/Packages";
 import { handleProductPackage, isBase64 } from "./utils";
+import storageUtils from "@/utils/storageUtils";
+import { STORAGE_KEY } from "@/constants";
 
 const store = useStore();
 const amountUsd = ref(null);
@@ -167,7 +169,7 @@ const onSubmit = (e) => {
 
       if (
         values?.clientPhoneNumber &&
-        !/^([0-9]){9,12}$/.test(values.clientPhoneNumber)
+        !/^(?:\d{10,12}|)$/.test(values.clientPhoneNumber)
       ) {
         app.$confirm({
           title: "Số điện thoại không hợp lệ!",
@@ -188,12 +190,15 @@ const onSubmit = (e) => {
         file = image.value || null;
       }
 
+      const storeId = storageUtils.get(STORAGE_KEY.STORE_DETAIL)?.id;
       const formData = new BillOrderReqDto({
+        storeId,
         discount: values.discount || 0,
-        clientName: values.clientName,
-        clientPhoneNumber: values.clientPhoneNumber || null,
+        clientName: values.clientName || '',
+        clientPhoneNumber: values.clientPhoneNumber || '',
         payType: values.payType,
         tip: values.tip || 0,
+        total: +total.value,
         file: file,
         saleType: SALE_TYPE.PACKAGE,
         products: JSON.stringify(products),
@@ -206,9 +211,8 @@ const onSubmit = (e) => {
             yes: "Ok",
           },
           callback: (confirm) => {
-            if (confirm) {
-              router.push(HOME);
-              return;
+            if (confirm && !data?.title) {
+              return router.push(HOME);
             }
           },
         });
@@ -235,10 +239,12 @@ const handleIndividual = (selectedIndex) => {
 };
 
 const handleGetPackages = async () => {
+  const storeId = storageUtils.get(STORAGE_KEY.STORE_DETAIL)?.id;
   const result = await handlerCallApi({
     url: "/packages/staff",
     method: "GET",
     params: {
+      storeId,
       currentPage: 1,
       pageSize: 1000,
     },

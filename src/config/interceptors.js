@@ -5,10 +5,19 @@ import store from "@/store";
 import storageUtils from "@/utils/storageUtils";
 import axios from "axios";
 import NProgress from "nprogress";
+import { LOGIN } from "@/routes/path";
 
 let refreshTokenRequest = null;
 const baseURL = "https://admin.litinailhair.com/api/v1";
 // const baseURL = "http://localhost:3003/api/v1";
+
+const handleLogout = () => {
+  storageUtils.remove(STORAGE_KEY.STORE_DETAIL);
+  storageUtils.remove(STORAGE_KEY.TOKEN_DATA);
+  storageUtils.remove(STORAGE_KEY.USER_DETAIL);
+
+  router.push(LOGIN);
+};
 
 const handlerRefreshToken = () => {
   return new Promise(function (resolve, reject) {
@@ -21,8 +30,7 @@ const handlerRefreshToken = () => {
         resolve(data.data);
       })
       .catch((err) => {
-        storageUtils.remove(STORAGE_KEY.TOKEN_DATA);
-        router?.push("/login");
+        handleLogout();
         reject(err);
       });
   });
@@ -34,7 +42,10 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   function (config) {
-    if (LOADING_ROUTES_URL.includes(config.url) || config.url.includes(STORE_URL_API)) {
+    if (
+      LOADING_ROUTES_URL.includes(config.url) ||
+      config.url.includes(STORE_URL_API)
+    ) {
       store.commit("loading/setLoading", { isLoading: true });
     } else {
       NProgress.start();
@@ -63,9 +74,11 @@ axiosInstance.interceptors.response.use(
     const originalRequest = error.config;
     NProgress.done();
     store.commit("loading/setLoading", { isLoading: false });
+    const errorData = error?.response?.data;
     if (
       error?.response?.status == 401 &&
-      error?.response?.data?.error !== ERROR_CODE.USER_NOT_FOUND
+      errorData?.error !== ERROR_CODE.USER_NOT_FOUND &&
+      errorData?.error !== ERROR_CODE.USER_DELETED
     ) {
       refreshTokenRequest = refreshTokenRequest
         ? refreshTokenRequest
@@ -82,13 +95,16 @@ axiosInstance.interceptors.response.use(
       });
       originalRequest.headers.authorization = "Bearer " + data.accessToken;
       return axios(originalRequest);
-    } else {
-      const errorData = error?.response?.data;
-      store.commit("error/setError", {
-        message: errorData?.message,
-        type: errorData?.error,
-      });
     }
+    store.commit("error/setError", {
+      message: errorData?.message,
+      type: errorData?.error,
+    });
+
+    if (errorData?.error === ERROR_CODE.USER_DELETED) {
+      handleLogout();
+    }
+
     return Promise.reject(error);
   }
 );

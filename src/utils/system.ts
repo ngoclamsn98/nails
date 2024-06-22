@@ -18,5 +18,6 @@ export const getIOSVersion = () => {
     if (+iOSVersion >= 17) return false;
     return true;
   }
-  return true;
+  // if system android
+  return false;
 };

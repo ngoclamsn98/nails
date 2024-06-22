@@ -2,7 +2,7 @@
   <ProductList />
   <div class="my-2"></div>
   <form
-    class="flex justify-start items-start w-[90%] h-full flex-col mx-auto "
+    class="flex justify-start items-start w-[90%] h-full flex-col mx-auto mb-[80px]"
     @submit.prevent="handleSubmitForm"
   >
     <InformationSale
@@ -22,6 +22,8 @@ import InformationSale from "@/components/InformationSale";
 import ProductList from "@/components/ProductList";
 import RateStar from "@/components/RateStar";
 import { TYPE_PAGE } from "@/constants";
+import storageUtils from "@/utils/storageUtils";
+import { STORAGE_KEY } from "@/constants";
 import { BillOrderReqDto, SALE_TYPE } from "@/declaration";
 
 import { handlerCallApi } from "@/config/interceptors";
@@ -56,7 +58,9 @@ const data = reactive({
 });
 
 const submitData = async (values) => {
+  const storeId = storageUtils.get(STORAGE_KEY.STORE_DETAIL)?.id;
   const body = {
+    storeId,
     stockIns: values.products.map((product) => ({
       productId: product.id,
       inCnt: product.quantity || 1,
@@ -99,6 +103,7 @@ const handlerImportProduct = () => {
 };
 
 const handlerBuyProduct = (values) => {
+  const storeId = storageUtils.get(STORAGE_KEY.STORE_DETAIL)?.id;
   const products = values.products.map((product) => ({
     id: product.id,
     quantity: product.quantity || 1,
@@ -106,11 +111,13 @@ const handlerBuyProduct = (values) => {
   }));
 
   const formData = new BillOrderReqDto({
+    storeId,
     discount: values.discount || 0,
-    clientName: values.clientName,
-    clientPhoneNumber: values.clientPhoneNumber || null,
+    clientName: values.clientName || '',
+    clientPhoneNumber: values.clientPhoneNumber || '',
     payType: values.payType,
     tip: values.tip || 0,
+    total: +total.value,
     file: null,
     saleType: SALE_TYPE.PRODUCT,
     products: JSON.stringify(products),
@@ -172,9 +179,14 @@ let timeout;
 watch(data, async (newData) => {
   if (typePage === TYPE_PAGE.SALES_PRODUCT) {
     const usd = await handleConvertVndToUSD(
-      totalPrice(toRaw(newData.products)) - (values.discount || 0)
+      totalPrice(toRaw(newData.products)) -
+        (values.discount || 0) +
+        (values.tip || 0)
     );
-    total.value = totalPrice(toRaw(newData.products)) - (values.discount || 0);
+    total.value =
+      totalPrice(toRaw(newData.products)) -
+      (values.discount || 0) +
+      (values.tip || 0);
     totalUsd.value = usd;
   }
 });
@@ -182,7 +194,10 @@ watch(data, async (newData) => {
 watch(values, (newValues) => {
   if (typePage === TYPE_PAGE.SALES_PRODUCT) {
     const debounceTime = 1000;
-    total.value = totalPrice(toRaw(data.products)) - (newValues.discount || 0);
+    total.value =
+      totalPrice(toRaw(data.products)) -
+      (newValues.discount || 0) +
+      (newValues.tip || 0);
     clearTimeout(timeout);
     timeout = setTimeout(async () => {
       totalUsd.value = await handleConvertVndToUSD(total.value);
